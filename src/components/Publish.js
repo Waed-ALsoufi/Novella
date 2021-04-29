@@ -1,6 +1,6 @@
 // Waed ALsoufi
 import axios from "axios";
-// import "../Style/Publish.css";
+import "../Style/Publish.css";
 import firebase from "./firebase";
 import "firebase/storage";
 import React, { useState } from "react";
