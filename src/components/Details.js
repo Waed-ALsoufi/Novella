@@ -1,6 +1,6 @@
 // Waed ALsoufi
 import React from "react";
-// import "../Style/Details.css";
+import "../Style/Details.css";
 function Details(props) {
   const {
     bookName,
