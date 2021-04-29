@@ -1,6 +1,6 @@
 // Waed ALsoufi
 
-import "../AllStyle/Posts.css";
+import "../Style/Posts.css";
 import React from "react";
 import { Link } from "react-router-dom";
 
