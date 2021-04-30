@@ -3,7 +3,7 @@
 .BooksList {
   min-height: 100vh;
   background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
-  padding: 30px;
+  padding: 90px;
 }
 .filter {
   width: 35%;
@@ -38,6 +38,7 @@
   padding: 10px;
   margin: 8px;
   border-radius: 10px;
+  width: 45%;
 }
 .AllBooks {
   padding: 10px;
