@@ -1,23 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap");
+
 .BooksList {
   min-height: 100vh;
   background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+  padding: 30px;
+}
+.filter {
+  width: 35%;
+  background-image: linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%);
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+.filterButton {
+  width: 100%;
+  text-align: center;
+  border: none;
+  padding: 7px;
+  font-size: 25px;
+  color: #ffffff;
+  background-image: linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%);
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.SearchForm {
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 0 10px;
 }
 
-.SearchForm {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 30px;
-}
 .SearchInput {
-  width: 50%;
   border: none;
   padding: 10px;
-  margin: 10px;
+  margin: 8px;
+  border-radius: 10px;
 }
 .AllBooks {
+  padding: 10px;
   text-align: center;
-
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
