@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { AiFillFilter } from "react-icons/ai";
 import firebase from "./firebase";
 import Posts from "./Posts";
 import IsLoading from "./IsLoading";
@@ -6,6 +7,7 @@ function Postrender() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const ref = firebase.firestore().collection("AllPosts");
+  const [showMe, setShowMe] = useState(false);
 
   function getPosts() {
     setisLoading(true);
@@ -23,30 +25,92 @@ function Postrender() {
   useEffect(() => {
     getPosts();
   }, []);
-  const [searchTerm, setSearchTerm] = useState("");
-
+  const [searchBookName, setsearchBookName] = useState("");
+  const [searchBookLocation, setsearchBookLocation] = useState("");
+  const [searchbookAuthor, setsearchbookAuthor] = useState("");
+  const [searchbookType, setsearchbookType] = useState("");
   if (isLoading) {
     return <IsLoading />;
   }
   return (
     <div className="BooksList">
-      <div className="SearchForm ">
-        <input
-          type="text"
-          placeholder="Book Name"
-          className="SearchInput"
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-          }}
-        />
+      <div className="filter">
+        <button className="filterButton" onClick={() => setShowMe(!showMe)}>
+          {" "}
+          <AiFillFilter />
+          Filter
+        </button>
+
+        {showMe ? (
+          <div className="SearchForm ">
+            <input
+              type="text"
+              placeholder="Book Name"
+              className="SearchInput"
+              onChange={(e) => {
+                setsearchBookName(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Book Location"
+              className="SearchInput"
+              onChange={(e) => {
+                setsearchBookLocation(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Book Author"
+              className="SearchInput"
+              onChange={(e) => {
+                setsearchbookAuthor(e.target.value);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Book Type"
+              className="SearchInput"
+              onChange={(e) => {
+                setsearchbookType(e.target.value);
+              }}
+            />
+          </div>
+        ) : null}
       </div>
+
       <div className="AllBooks">
         {posts
           .filter((post) => {
-            if (searchTerm === "") {
+            if (
+              searchBookName === "" &&
+              searchBookLocation === "" &&
+              searchbookAuthor === "" &&
+              searchbookType === ""
+            ) {
               return post;
             } else if (
-              post.bookName.toLowerCase().includes(searchTerm.toLowerCase())
+              searchBookName !== "" &&
+              post.bookName.toLowerCase().includes(searchBookName.toLowerCase())
+            ) {
+              return post;
+            } else if (
+              searchBookLocation !== "" &&
+              post.bookLocation
+                .toLowerCase()
+                .includes(searchBookLocation.toLowerCase())
+            ) {
+              return post;
+            } else if (
+              searchbookAuthor !== "" &&
+              post.bookAuthor
+                .toLowerCase()
+                .includes(searchbookAuthor.toLowerCase())
+            ) {
+              return post;
+            } else if (
+              searchbookType !== "" &&
+              post.bookType.toLowerCase().includes(searchbookType.toLowerCase())
             ) {
               return post;
             }
