@@ -1,6 +1,9 @@
 .navbar {
   background-color: #a39ce0;
   height: 70px;
+  width: 100%;
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: center;
   align-items: center;
