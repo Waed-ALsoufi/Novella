@@ -1,9 +1,18 @@
-import React from "react";
-// waed branch
-export default function Home() {
+import Reviws from './Reviws.js'
+import Quotes from "./Quotes";
+// import  Slides from "./Slides";
+import "../Style/Home.css";
+import Slider from "./Slider";
+
+const Home = () => {
   return (
-    <>
-      <h1 className="home">HOme</h1>
-    </>
+    <div className="main">
+      <Slider />
+      <div><Quotes /></div>
+
+      <Reviws />
+      <button className="GoToMap">Go to map</button>
+    </div>
   );
-}
+};
+export default Home;
