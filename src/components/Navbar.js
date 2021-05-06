@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Style/Navbar.css";
 import Dropdown from "./Dropdown";
+import userPic from "../Images/user.png";
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -51,13 +52,9 @@ function Navbar() {
               Publish
             </Link>
           </li>
-          <li>
-            <Link
-              to="/sign-up"
-              className="nav-links-mobile"
-              onClick={closeMobileMenu}
-            >
-              Sign Up
+          <li className="nav-item">
+            <Link to="/SignUp" className="nav-links" onClick={closeMobileMenu}>
+              (Sign Up)
             </Link>
           </li>
           <li
@@ -66,7 +63,9 @@ function Navbar() {
             onMouseLeave={onMouseLeave}
           >
             <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
-              User Name <i className="fas fa-caret-down" />
+              <i className="fas fa-caret-down" />
+              <img src={userPic} className="userPicNav" />{" "}
+              <span className="dropDownCaret"></span>
             </Link>
             {dropdown && <Dropdown />}
           </li>
