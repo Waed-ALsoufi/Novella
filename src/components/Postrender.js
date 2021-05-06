@@ -3,6 +3,8 @@ import { AiFillFilter } from "react-icons/ai";
 import firebase from "./firebase";
 import Posts from "./Posts";
 import IsLoading from "./IsLoading";
+import postStyle from "../Style/Posts.module.css";
+
 function Postrender() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
@@ -33,20 +35,23 @@ function Postrender() {
     return <IsLoading />;
   }
   return (
-    <div className="BooksList">
-      <div className="filter">
-        <button className="filterButton" onClick={() => setShowMe(!showMe)}>
+    <div className={postStyle.BooksList}>
+      <div className={postStyle.filter}>
+        <button
+          className={postStyle.filterButton}
+          onClick={() => setShowMe(!showMe)}
+        >
           {" "}
           <AiFillFilter />
           Filter
         </button>
 
         {showMe ? (
-          <div className="SearchForm ">
+          <div className={postStyle.SearchForm}>
             <input
               type="text"
               placeholder="Book Name"
-              className="SearchInput"
+              className={postStyle.SearchInput}
               onChange={(e) => {
                 setsearchBookName(e.target.value);
               }}
@@ -54,7 +59,7 @@ function Postrender() {
             <input
               type="text"
               placeholder="Book Location"
-              className="SearchInput"
+              className={postStyle.SearchInput}
               onChange={(e) => {
                 setsearchBookLocation(e.target.value);
               }}
@@ -62,7 +67,7 @@ function Postrender() {
             <input
               type="text"
               placeholder="Book Author"
-              className="SearchInput"
+              className={postStyle.SearchInput}
               onChange={(e) => {
                 setsearchbookAuthor(e.target.value);
               }}
@@ -70,7 +75,7 @@ function Postrender() {
             <input
               type="text"
               placeholder="Book Type"
-              className="SearchInput"
+              className={postStyle.SearchInput}
               onChange={(e) => {
                 setsearchbookType(e.target.value);
               }}
@@ -79,7 +84,7 @@ function Postrender() {
         ) : null}
       </div>
 
-      <div className="AllBooks">
+      <div className={postStyle.AllBooks}>
         {posts
           .filter((post) => {
             if (
