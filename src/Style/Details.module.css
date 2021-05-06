@@ -17,20 +17,20 @@
   background-color: #fff;
 }
 
-.Book-img {
+.Book_img {
   float: left;
   height: 65%;
   width: 40%;
   padding: 20px;
 }
 
-.Book-img img {
+.Book_img img {
   border-radius: 7px 0 0 7px;
   height: 100%;
   width: 90%;
 }
 
-.Book-img ul li {
+.Book_img ul li {
   padding: 3px;
   list-style: none;
   text-decoration: none;
@@ -40,12 +40,12 @@
   font-size: 17px;
   font-weight: lighter;
 }
-.Book-img ul li span {
+.Book_img ul li span {
   color: #54147c;
   font-family: "Indie Flower", cursive;
 }
 
-.Book-info {
+.Book_info {
   float: left;
   height: 100%;
   width: 60%;
@@ -53,12 +53,12 @@
   background-color: #ffffff;
 }
 
-.Book-text {
+.Book_text {
   height: 70%;
   width: 95%;
 }
 
-.Book-text h1 {
+.Book_text h1 {
   margin: 0 0 0 20px;
   padding-top: 30px;
   font-size: 35px;
@@ -66,7 +66,7 @@
   font-family: "Indie Flower", cursive;
 }
 
-.Book-text h2 {
+.Book_text h2 {
   /* padding: 10px; */
   font-size: 13px;
   font-family: "Raleway", sans-serif;
@@ -76,7 +76,7 @@
   letter-spacing: 0.2em;
 }
 
-.Book-text p {
+.Book_text p {
   height: 125px;
   font-family: "Playfair Display", serif;
   color: #292424;
@@ -86,7 +86,7 @@
   overflow: hidden;
 }
 
-.Book-btn {
+.Book_btn {
   height: 50px;
   width: 176px;
   box-sizing: border-box;

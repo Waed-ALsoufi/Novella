@@ -1,6 +1,6 @@
 // Waed ALsoufi
 import React from "react";
-import "../Style/Details.css";
+import detailsStyle from "../Style/Details.module.css";
 function Details(props) {
   const {
     bookName,
@@ -15,9 +15,9 @@ function Details(props) {
   } = (props.location && props.location.props) || {};
   console.log(props);
   return (
-    <div className="All" key={id}>
-      <div className="wrapper">
-        <div className="Book-img">
+    <div className={detailsStyle.All} key={id}>
+      <div className={detailsStyle.wrapper}>
+        <div className={detailsStyle.Book_img}>
           <img src={src} alt={alt} />
           <ul>
             <li>
@@ -34,14 +34,14 @@ function Details(props) {
             </li>
           </ul>
         </div>
-        <div className="Book-info">
-          <div className="Book-text">
+        <div className={detailsStyle.Book_info}>
+          <div className={detailsStyle.Book_text}>
             <h1>{bookName}</h1>
             <h2>BOOK DESCRIPTION</h2>
             <p>{description}</p>
             <h2>BOOK Details</h2>
             <p>{details}</p>
-            <button className="Book-btn" type="button">
+            <button className={detailsStyle.Book_btn} type="button">
               {" "}
               Contact
             </button>
