@@ -1,17 +1,9 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import "./App.css";
-import Routes from "./components/NavRoutes";
-
-import { BrowserRouter as Router } from "react-router-dom";
-
+import Main from "./components/Main";
+import Slider from "./components/Slider";
 function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Routes />
-    </Router>
-  );
+  const showLaning = false;
+  return <div>{showLaning ? <Slider /> : <Main />}</div>;
 }
 
 export default App;
