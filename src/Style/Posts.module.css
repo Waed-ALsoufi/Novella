@@ -5,25 +5,7 @@
   background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
   padding: 90px;
 }
-.filter {
-  width: 35%;
-  background-image: linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%);
-  margin: auto;
-  align-items: center;
-  justify-content: center;
-}
-.filterButton {
-  width: 100%;
-  text-align: center;
-  border: none;
-  padding: 7px;
-  font-size: 25px;
-  color: #ffffff;
-  background-image: linear-gradient(45deg, #93a5cf 0%, #e4efe9 100%);
-  outline: none;
-  cursor: pointer;
-  transition: 0.3s;
-}
+
 .SearchForm {
   margin: auto;
   align-items: center;
@@ -35,10 +17,11 @@
 
 .SearchInput {
   border: none;
-  padding: 10px;
+  padding: 15px;
   margin: 8px;
   border-radius: 10px;
   width: 45%;
+  outline: none;
 }
 .AllBooks {
   padding: 10px;
