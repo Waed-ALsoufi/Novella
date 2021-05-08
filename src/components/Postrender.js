@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { AiFillFilter } from "react-icons/ai";
 import firebase from "./firebase";
 import Posts from "./Posts";
 import IsLoading from "./IsLoading";
@@ -9,8 +8,7 @@ function Postrender() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const ref = firebase.firestore().collection("AllPosts");
-  const [showMe, setShowMe] = useState(false);
-
+  const [renderpost, setrenderposts] = useState([]);
   function getPosts() {
     setisLoading(true);
     ref.get().then((item) => {
@@ -22,117 +20,64 @@ function Postrender() {
         all.push(data);
       });
       setPosts(all);
+      setrenderposts(all);
     });
   }
   useEffect(() => {
     getPosts();
   }, []);
-  const [searchBookName, setsearchBookName] = useState("");
-  const [searchBookLocation, setsearchBookLocation] = useState("");
-  const [searchbookAuthor, setsearchbookAuthor] = useState("");
-  const [searchbookType, setsearchbookType] = useState("");
+  const [searchBook, setsearchBook] = useState("");
+
+  function filterByName() {
+    let filteredpost = posts.filter((post) => {
+      return (
+        post.bookName.toLowerCase().includes(searchBook.toLowerCase()) ||
+        post.bookLocation.toLowerCase().includes(searchBook.toLowerCase()) ||
+        post.bookAuthor.toLowerCase().includes(searchBook.toLowerCase()) ||
+        post.bookType.toLowerCase().includes(searchBook.toLowerCase())
+      );
+    });
+    setrenderposts(filteredpost);
+  }
+
+  useEffect(() => {
+    filterByName();
+  }, [searchBook]);
   if (isLoading) {
     return <IsLoading />;
   }
+
   return (
     <div className={postStyle.BooksList}>
-      <div className={postStyle.filter}>
-        <button
-          className={postStyle.filterButton}
-          onClick={() => setShowMe(!showMe)}
-        >
-          {" "}
-          <AiFillFilter />
-          Filter
-        </button>
-
-        {showMe ? (
-          <div className={postStyle.SearchForm}>
-            <input
-              type="text"
-              placeholder="Book Name"
-              className={postStyle.SearchInput}
-              onChange={(e) => {
-                setsearchBookName(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Book Location"
-              className={postStyle.SearchInput}
-              onChange={(e) => {
-                setsearchBookLocation(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Book Author"
-              className={postStyle.SearchInput}
-              onChange={(e) => {
-                setsearchbookAuthor(e.target.value);
-              }}
-            />
-            <input
-              type="text"
-              placeholder="Book Type"
-              className={postStyle.SearchInput}
-              onChange={(e) => {
-                setsearchbookType(e.target.value);
-              }}
-            />
-          </div>
-        ) : null}
+      <div className={postStyle.SearchForm}>
+        <input
+          type="text"
+          placeholder="Search"
+          className={postStyle.SearchInput}
+          onChange={(e) => {
+            setsearchBook(e.target.value);
+            console.log(searchBook);
+            filterByName(searchBook);
+          }}
+        />
+        <i class="far fa-search"></i>
       </div>
 
       <div className={postStyle.AllBooks}>
-        {posts
-          .filter((post) => {
-            if (
-              searchBookName === "" &&
-              searchBookLocation === "" &&
-              searchbookAuthor === "" &&
-              searchbookType === ""
-            ) {
-              return post;
-            } else if (
-              searchBookName !== "" &&
-              post.bookName.toLowerCase().includes(searchBookName.toLowerCase())
-            ) {
-              return post;
-            } else if (
-              searchBookLocation !== "" &&
-              post.bookLocation
-                .toLowerCase()
-                .includes(searchBookLocation.toLowerCase())
-            ) {
-              return post;
-            } else if (
-              searchbookAuthor !== "" &&
-              post.bookAuthor
-                .toLowerCase()
-                .includes(searchbookAuthor.toLowerCase())
-            ) {
-              return post;
-            } else if (
-              searchbookType !== "" &&
-              post.bookType.toLowerCase().includes(searchbookType.toLowerCase())
-            ) {
-              return post;
-            }
-          })
-          .map((post) => (
-            <Posts
-              bookName={post.bookName}
-              id={post.id}
-              bookAuthor={post.bookAuthor}
-              bookType={post.bookType}
-              bookLocation={post.bookLocation}
-              src={post.src}
-              alt={post.alt}
-              description={post.description}
-              details={post.details}
-            />
-          ))}
+        {renderpost.map((post, index) => (
+          <Posts
+            key={index}
+            bookName={post.bookName}
+            id={post.id}
+            bookAuthor={post.bookAuthor}
+            bookType={post.bookType}
+            bookLocation={post.bookLocation}
+            src={post.src}
+            alt={post.alt}
+            description={post.description}
+            details={post.details}
+          />
+        ))}
       </div>
     </div>
   );
