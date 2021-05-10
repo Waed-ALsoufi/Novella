@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../Style/LogIn.css";
 import { auth } from "./firebase";
 
-function LogIn() {
+function LogIn(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const updateEmail = (e) => setEmail(e.target.value);
@@ -12,7 +12,7 @@ function LogIn() {
   const submitting = () => {
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((cred) => console.log(cred));
+      .then(() => props.history.push("/"));
   };
 
   return (
@@ -46,11 +46,9 @@ function LogIn() {
         ></input>
       </div>
       <div className="bottomLinks">
-        <Link to="/Home">
-          <button onClick={submitting} className="button">
-            Log In
-          </button>
-        </Link>
+        <button onClick={submitting} className="button">
+          Log In
+        </button>
         <h5 className="h5">
           Don't have an account? <Link to="/SignUp">Sign Up</Link>
         </h5>

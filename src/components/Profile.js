@@ -11,21 +11,25 @@ function Profile(props) {
   const [email, setEmail] = useState("");
   const [country, setCountry] = useState("");
   const [bio, setBio] = useState("");
+  const [user, setUser] = useState();
+  const [doc, setDoc] = useState();
 
   auth.onAuthStateChanged((user) => {
-    console.log(user);
+    setUser(user);
+    // console.log(user);
     db.collection("users")
       .doc(user.uid)
       .get()
       .then((doc) => {
+        setDoc(doc.data());
         setEmail(user.email);
         setBio(doc.data().bio);
         setName(doc.data().firstName + " " + doc.data().lastName);
         setCountry(doc.data().country);
       });
   });
-  const users = auth.currentUser;
-  console.log(`user: ${users}`);
+  // const users = auth.currentUser;
+  // console.log(`user: ${users}`);
   return (
     <div className="profile">
       <div className="card">
@@ -46,8 +50,8 @@ function Profile(props) {
 
       <Link
         to={{
-          pathname: "/EditProfile",
-          params: { name: name, country: country },
+          pathname: "/EditeProfile",
+          params: { user: user, name: name, country: country, bio: bio },
         }}
       >
         <button className="editBtn">Edit Profile</button>

@@ -4,7 +4,7 @@ import "../Style/EditeProfile.css";
 import { auth, db } from "./firebase";
 import { Link } from "react-router-dom";
 
-function SignUp() {
+function SignUp(props) {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -12,7 +12,7 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [bio, setBio] = useState("");
-  const [path, setPath] = useState("");
+  // const [path, setPath] = useState("/SignUp");
 
   const updateEmail = (e) => setEmail(e.target.value);
   const updateFirstName = (e) => setFirstName(e.target.value);
@@ -44,7 +44,7 @@ function SignUp() {
               country: country,
             });
           })
-          .then(() => setPath("/Home"));
+          .then(() => props.history.push("/"));
       }
     } else {
       alert("Passwords must be identical!");
@@ -130,11 +130,9 @@ function SignUp() {
         </div>
       </div>
       <div className="bottomLinks">
-        <Link to={path}>
-          <button onClick={submitting} className="button">
-            Sign Up
-          </button>
-        </Link>
+        <button onClick={submitting} className="button">
+          Sign Up
+        </button>
         <h5 className="h5">
           Do you already have an account? <Link to="/LogIn">Log In</Link>
         </h5>
