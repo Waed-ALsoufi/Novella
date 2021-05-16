@@ -1,0 +1,133 @@
+.detaills {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-color: #ffe3fe;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 850px;
+  margin: 100px auto 70px;
+  border: 1px solid rgba(0, 0, 0, 0.274);
+  text-align: center;
+  padding-bottom: 20px;
+  background-color: #fff;
+}
+
+.bloc-tabs {
+  display: flex;
+}
+.tabs {
+  padding: 15px;
+  text-align: center;
+  width: 50%;
+  background: rgba(128, 128, 128, 0.075);
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  font-size: 20px;
+  font-family: "Playfair Display", serif;
+}
+.tabs:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.274);
+}
+
+.active-tabs {
+  background: white;
+  border-bottom: 1px solid transparent;
+}
+
+.active-tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 2px);
+  height: 5px;
+  background: #8f5ead;
+}
+
+button {
+  border: none;
+}
+.content-tabs {
+  flex-grow: 1;
+}
+.content {
+  background: white;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.active-content {
+  display: block;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap");
+
+.Book_img {
+  float: left;
+  width: 40%;
+}
+
+.Book_img img {
+  border-radius: 8px;
+  height: 200px;
+  width: 200px;
+}
+
+.Book_img ul li {
+  padding: 4px;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Playfair Display", serif;
+  line-height: 1.7em;
+  font-size: 17px;
+  font-weight: lighter;
+}
+.Book_img ul li span {
+  color: #54147c;
+  font-family: "Indie Flower", cursive;
+}
+
+.Book_info {
+  float: left;
+  height: 100%;
+  width: 60%;
+  background-color: #ffffff;
+}
+
+.Book_text h1 {
+  font-size: 30px;
+  color: #474747;
+  font-family: "Indie Flower", cursive;
+}
+
+.Book_text h2 {
+  padding-top: 10px;
+  font-size: 15px;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #8f5ead;
+  letter-spacing: 0.2em;
+}
+
+.Book_text p {
+  height: 130px;
+  font-family: "Playfair Display", serif;
+  color: #292424;
+  line-height: 1.7em;
+  font-size: 15px;
+  font-weight: lighter;
+  overflow: hidden;
+}
