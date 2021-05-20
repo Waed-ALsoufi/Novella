@@ -1,6 +1,6 @@
 // Waed ALsoufi
-import React from "react";
-import "../Style/Details.css";
+import { useState } from "react";
+import "../Style/Tabs.css";
 function Details(props) {
   const {
     bookName,
@@ -13,41 +13,78 @@ function Details(props) {
     src,
     details,
   } = (props.location && props.location.props) || {};
-  console.log(props);
+
+  const [toggleState, setToggleState] = useState(1);
+
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
   return (
-    <div className="All" key={id}>
-      <div className="wrapper">
-        <div className="Book-img">
-          <img src={src} alt={alt} />
-          <ul>
-            <li>
-              <span>Book Name : </span> {bookName}
-            </li>
-            <li>
-              <span>By :</span> {bookAuthor}
-            </li>
-            <li>
-              <span>Type :</span> {bookType}
-            </li>
-            <li>
-              <span>Location :</span> {bookLocation}
-            </li>
-          </ul>
-        </div>
-        <div className="Book-info">
-          <div className="Book-text">
-            <h1>{bookName}</h1>
-            <h2>BOOK DESCRIPTION</h2>
-            <p>{description}</p>
-            <h2>BOOK Details</h2>
-            <p>{details}</p>
-            <button className="Book-btn" type="button">
-              {" "}
-              Contact
+    <div className="detaills">
+      {bookName ? (
+        <div className="container" key={id}>
+          <div className="bloc-tabs">
+            <button
+              className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+              onClick={() => toggleTab(1)}
+            >
+              Book Details
+            </button>
+            <button
+              className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+              onClick={() => toggleTab(2)}
+            >
+              User Details
             </button>
           </div>
+
+          <div className="content-tabs">
+            <div
+              className={
+                toggleState === 1 ? "content  active-content" : "content"
+              }
+            >
+              <div className="Book_img">
+                <img src={src} alt={alt} />
+                <ul>
+                  <li>
+                    <span>Book Name : </span> {bookName}
+                  </li>
+                  <li>
+                    <span>By :</span> {bookAuthor}
+                  </li>
+                  <li>
+                    <span>Type :</span> {bookType}
+                  </li>
+                  <li>
+                    <span>Location :</span> {bookLocation}
+                  </li>
+                </ul>
+              </div>
+              <div className="Book_info">
+                <div className="Book_text">
+                  <h1>{bookName}</h1>
+                  <p>{description}</p>
+                  <h2>BOOK Details</h2>
+                  <p>{details}</p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className={
+                toggleState === 2 ? "content  active-content" : "content"
+              }
+            >
+              <h2>User Details</h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Sapiente voluptatum qui adipisci.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }
