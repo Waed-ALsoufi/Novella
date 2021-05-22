@@ -3,20 +3,24 @@ import "../Style/EditeProfile.css";
 import app from "./firebase";
 
 function EditeProfile(props) {
-  const [name, setName] = useState(props.location.params.name);
+  const name = props.location.params.name;
   const [firstName, setFirstName] = useState(name.substr(0, name.indexOf(" ")));
   const [lastName, setLastName] = useState(name.substr(name.indexOf(" ") + 1));
   const [bio, setBio] = useState(props.location.params.bio);
   const [country, setCountry] = useState(props.location.params.country);
-
+  const [newPassword, setNewPassword] = useState();
+  const [confirmPassword, setConfrirmPassword] = useState();
   const user = props.location.params.user;
 
   const updateFirstName = (e) => setFirstName(e.target.value);
   const updateLastName = (e) => setLastName(e.target.value);
   const updateBio = (e) => setBio(e.target.value);
   const updateCountry = (e) => setCountry(e.target.value);
+  const updateNewPassword = (e) => setNewPassword(e.target.value);
+  const updateConfirmPassword = (e) => setConfrirmPassword(e.target.value);
 
   const cancel = () => props.history.goBack();
+
   const save = () => {
     app
       .firestore()
@@ -29,6 +33,11 @@ function EditeProfile(props) {
         country: country,
       })
       .then(() => props.history.goBack());
+    if (newPassword != null) {
+      if (newPassword === confirmPassword) {
+        user.updatePassword(newPassword).then(() => console.log("done"));
+      }
+    }
   };
   return (
     <div className="editProfile">
@@ -84,18 +93,20 @@ function EditeProfile(props) {
         <div className="inputItem">
           <h3 className="edittingTitle">Change Password:</h3>{" "}
           <input
-            type="text"
+            type="password"
             placeholder="New Password"
             className="edittingBox"
+            onChange={updateNewPassword}
           ></input>
         </div>
 
         <div className="inputItem">
           <h3 className="edittingTitle">Confirm Password:</h3>{" "}
           <input
-            type="text"
+            type="password"
             placeholder="Confirm New Password"
             className="edittingBox"
+            onChange={updateConfirmPassword}
           ></input>
         </div>
       </div>
