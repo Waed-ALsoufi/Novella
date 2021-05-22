@@ -12,7 +12,12 @@ function LogIn(props) {
   const submitting = () => {
     auth
       .signInWithEmailAndPassword(email, password)
-      .then(() => props.history.push("/"));
+      .then(() => {
+        props.history.push("/");
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (
