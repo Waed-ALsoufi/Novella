@@ -1,10 +1,11 @@
 // Waed ALsoufi
 import axios from "axios";
 import publishStyle from "../Style/Publish.module.css";
-import firebase from "./firebase";
+import fire from "./firebase";
 import "firebase/storage";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./Auth";
 
 function Publish(props) {
   const [state, setState] = useState({
@@ -26,8 +27,10 @@ function Publish(props) {
     setdescription(result.data.items[0].volumeInfo.description);
   };
 
+  const { name, email } = useAuth();
+
   const addNewPost = () => {
-    firebase
+    fire
       .firestore()
       .collection("AllPosts")
       .add({
@@ -39,6 +42,8 @@ function Publish(props) {
         src: image.PhotoUrl,
         alt: image.alt || state.bookName,
         description: description,
+        userName: name,
+        userEmail: email,
       });
   };
 
@@ -50,7 +55,7 @@ function Publish(props) {
       });
     }
 
-    var uploadTask = firebase.storage().ref();
+    var uploadTask = fire.storage().ref();
     uploadTask
       .child(`/books/${e.target.files[0].name}`)
       .put(e.target.files[0])

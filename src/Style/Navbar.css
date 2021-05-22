@@ -32,7 +32,7 @@
   grid-gap: 10px;
   list-style: none;
   text-align: center;
-  width: 70vw;
+  width: 65vw;
   justify-content: end;
   margin-right: 2rem;
 }
@@ -46,7 +46,7 @@
 .nav-links {
   color: white;
   text-decoration: none;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem !important;
 }
 
 .nav-links:hover {
@@ -59,10 +59,25 @@
   color: #fff;
 }
 
-.nav-links-mobile {
+.menu-icon {
   display: none;
 }
 
-.menu-icon {
-  display: none;
+.userPicNav {
+  width: 30px;
+  margin: 0;
+  border-radius: 20px;
+}
+
+.dropDownCaret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: middle;
+  border-top-style: solid;
+  border-top-width: 4px;
+  border-right: 4px solid transparent;
+  border-bottom: 0 solid transparent;
+  border-left: 4px solid transparent;
+  margin-left: 5px;
 }

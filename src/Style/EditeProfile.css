@@ -1,0 +1,61 @@
+.editProfile {
+  margin-top: 60px;
+}
+
+.edittingTitle {
+  /* margin-left: 0; */
+  font-family: Playfair Display;
+  font-style: normal;
+  /* font-weight: normal; */
+  line-height: 44px;
+  color: #440a67;
+  margin-bottom: 2px;
+  /* display: block; */
+}
+
+.leftStuff {
+  padding-left: 0;
+}
+
+.putAside {
+  display: flex;
+  padding-left: 0;
+}
+
+.inputItem {
+  margin-bottom: 50px;
+  margin-right: 70px;
+}
+
+.edittingBox {
+  margin-left: 0 !important;
+}
+
+.btns {
+  width: 250px;
+  height: 54px;
+  margin-bottom: 20px;
+}
+.cancelBtn {
+  /* margin-top: 25px; */
+  float: left;
+
+  margin-left: 65px;
+  background-color: aliceblue;
+  color: rgb(0, 0, 0);
+}
+
+.cancelBtn:hover {
+  background-color: rgba(212, 216, 219, 0.842);
+}
+
+.saveBtn {
+  float: right;
+  margin-right: 155px;
+  background-color: #440a67;
+  color: aliceblue;
+}
+
+.saveBtn:hover {
+  background-color: #5c118a;
+}

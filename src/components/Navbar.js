@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Style/Navbar.css";
 import Dropdown from "./Dropdown";
+import userPic from "../Images/pfp2.png";
+import { useAuth } from "./Auth";
 
 function Navbar() {
   const [click, setClick] = useState(false);
   const [dropdown, setDropdown] = useState(false);
 
   const closeMobileMenu = () => setClick(false);
+  const { currentUser } = useAuth();
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -25,15 +28,15 @@ function Navbar() {
     }
   };
 
-  return (
+  return currentUser ? (
     <>
       <nav className="navbar">
-        <Link to="/" className="navbar-logo" onClick={closeMobileMenu}>
+        <Link to="/Home" className="navbar-logo">
           WebSite Name
         </Link>
         <ul className={click ? "nav-menu active" : "nav-menu"}>
           <li className="nav-item">
-            <Link to="/" className="nav-links">
+            <Link to="/Home" className="nav-links">
               Home
             </Link>
           </li>
@@ -53,14 +56,16 @@ function Navbar() {
             onMouseLeave={onMouseLeave}
           >
             <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
-              User Name <i className="fas fa-caret-down" />
+              <i className="fas fa-caret-down" />
+              <img src={userPic} className="userPicNav" alt="" />
+              <span className="dropDownCaret"></span>{" "}
             </Link>
             {dropdown ? <Dropdown /> : null}
           </li>
         </ul>
       </nav>
     </>
-  );
+  ) : null;
 }
 
 export default Navbar;

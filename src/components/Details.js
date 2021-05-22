@@ -12,6 +12,8 @@ function Details(props) {
     alt,
     src,
     details,
+    userName,
+    userEmail,
   } = (props.location && props.location.props) || {};
 
   const [toggleState, setToggleState] = useState(1);
@@ -76,11 +78,8 @@ function Details(props) {
                 toggleState === 2 ? "content  active-content" : "content"
               }
             >
-              <h2>User Details</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Sapiente voluptatum qui adipisci.
-              </p>
+              <h2>{userName}</h2>
+              <p>{userEmail}</p>
             </div>
           </div>
         </div>
