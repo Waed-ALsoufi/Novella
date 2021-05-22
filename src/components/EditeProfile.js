@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../Style/EditeProfile.css";
-import { db } from "./firebase";
+import app from "./firebase";
 
 function EditeProfile(props) {
   const [name, setName] = useState(props.location.params.name);
@@ -18,7 +18,9 @@ function EditeProfile(props) {
 
   const cancel = () => props.history.goBack();
   const save = () => {
-    db.collection("users")
+    app
+      .firestore()
+      .collection("users")
       .doc(user.uid)
       .set({
         bio: bio,
