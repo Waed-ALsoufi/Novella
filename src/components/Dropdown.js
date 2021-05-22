@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-// import { MenuItems } from "./MenuItems";
 import "../Style/Dropdown.css";
 import { Link } from "react-router-dom";
-import { auth } from "./firebase";
+import { useAuth } from "./Auth";
 
 function Dropdown() {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
-  const logOut = () => auth.signOut().then(setClick(false));
+  const { logout } = useAuth();
 
   return (
     <>
@@ -26,7 +25,7 @@ function Dropdown() {
           </Link>
         </li>
         <li>
-          <Link className="dropdown-link" to="/Logout" onClick={logOut}>
+          <Link className="dropdown-link" to="/Logout" onClick={logout}>
             log out
           </Link>
         </li>
