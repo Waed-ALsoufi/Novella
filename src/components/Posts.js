@@ -1,18 +1,18 @@
 // Waed ALsoufi
 
-import "../Style/Posts.css";
+import postStyle from "../Style/Posts.module.css";
 import React from "react";
 import { Link } from "react-router-dom";
 
 function Posts(props) {
   return (
-    <div className="card" key={props.id}>
-      <div className="cardImg">
+    <div className={postStyle.card} key={props.id}>
+      <div className={postStyle.cardImg}>
         <img alt={`${props.alt} book`} src={props.src} />
       </div>
-      <div className="description">
-        <h4 className="cardTitle">{props.bookName}</h4>
-        <p className="info">
+      <div className={postStyle.description}>
+        <h4 className={postStyle.cardTitle}>{props.bookName}</h4>
+        <p className={postStyle.info}>
           {" "}
           <small> Book Author :{props.bookAuthor}</small>
         </p>
@@ -30,7 +30,7 @@ function Posts(props) {
           }}
           className="infobtn"
         >
-          <button className="more">More Details</button>
+          <button className={postStyle.more}>More Details</button>
         </Link>
       </div>
     </div>

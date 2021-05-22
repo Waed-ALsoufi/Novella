@@ -1,6 +1,6 @@
 // Waed ALsoufi
 import axios from "axios";
-import "../Style/Publish.css";
+import publishStyle from "../Style/Publish.module.css";
 import firebase from "./firebase";
 import "firebase/storage";
 import React, { useState } from "react";
@@ -72,16 +72,16 @@ function Publish(props) {
   };
 
   return (
-    <div className="container">
-      <div className="contact-box">
-        <div className="left"></div>
-        <div className="right">
-          <h2 className="Title">ADD BOOK</h2>
+    <div className={publishStyle.container}>
+      <div className={publishStyle.contact_box}>
+        <div className={publishStyle.left}></div>
+        <div className={publishStyle.right}>
+          <h2 className={publishStyle.Title}>ADD BOOK</h2>
 
           <input
             name="bookName"
             type="text"
-            className="field"
+            className={publishStyle.field}
             placeholder="Book Name"
             onChange={handleInputChange}
           ></input>
@@ -90,26 +90,26 @@ function Publish(props) {
             name="Image"
             accept=".png, .jpg, .jpeg"
             onChange={handleImg}
-            className="field"
+            className={publishStyle.field}
           />
           <input
             name="bookAuthor"
             type="text"
-            className="field"
+            className={publishStyle.field}
             placeholder="Book Author"
             onChange={handleInputChange}
           ></input>
           <input
             name="bookType"
             type="text"
-            className="field"
+            className={publishStyle.field}
             placeholder="Book Type"
             onChange={handleInputChange}
           ></input>
           <input
             name="bookLocation"
             type="text"
-            className="field"
+            className={publishStyle.field}
             placeholder="Book Location"
             onChange={handleInputChange}
           ></input>
@@ -117,12 +117,12 @@ function Publish(props) {
           <textarea
             name="details"
             placeholder="Book Details"
-            className="field"
+            className={publishStyle.field}
             onChange={handleInputChange}
           ></textarea>
 
           <Link to="/Posts">
-            <button className="btn" onClick={addNewPost}>
+            <button className={publishStyle.btn} onClick={addNewPost}>
               Publish
             </button>
           </Link>

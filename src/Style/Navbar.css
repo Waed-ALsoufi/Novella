@@ -9,6 +9,7 @@
   align-items: center;
   font-size: 1.2rem;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  z-index: 1;
 }
 
 .navbar-logo {
