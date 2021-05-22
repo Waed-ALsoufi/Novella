@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "../Style/LogIn.css";
-import "../Style/EditeProfile.css";
-import { auth, db } from "./firebase";
+import loginStyle from "../Style/Login.module.css";
+import fire from "./firebase";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import bg from "../Images/logBg.png";
+import { useAuth } from "./Auth";
 
 function SignUp(props) {
   const [email, setEmail] = useState("");
@@ -12,7 +14,8 @@ function SignUp(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [bio, setBio] = useState("");
-  // const [path, setPath] = useState("/SignUp");
+  let history = useHistory();
+  const { signup } = useAuth();
 
   const updateEmail = (e) => setEmail(e.target.value);
   const updateFirstName = (e) => setFirstName(e.target.value);
@@ -22,7 +25,7 @@ function SignUp(props) {
   const updateConfirmPassword = (e) => setConfirmPassword(e.target.value);
   const updateBio = (e) => setBio(e.target.value);
 
-  const submitting = (e) => {
+  async function submitting() {
     if (password === confirmPassword) {
       if (firstName.length < 3) {
         alert("Your first name is required");
@@ -33,109 +36,94 @@ function SignUp(props) {
       } else if (password.length < 8) {
         alert("Your password must be at least 8 characters");
       } else {
-        // e.preventDefault();
-        auth
-          .createUserWithEmailAndPassword(email, password)
-          .then((cred) => {
-            db.collection("users").doc(cred.user.uid).set({
+        try {
+          await signup(email, password).then((cred) => {
+            fire.firestore().collection("users").doc(cred.user.uid).set({
               bio: bio,
               firstName: firstName,
               lastName: lastName,
               country: country,
             });
-          })
-          .then(() => props.history.push("/"));
+          });
+          console.log("Signup 🎉🎉");
+          history.push("/");
+        } catch (err) {
+          alert(err.message);
+        }
       }
     } else {
       alert("Passwords must be identical!");
     }
-  };
-
+  }
   return (
-    <div>
-      <h3 id="webName" className="text">
-        Web Name
-      </h3>
-      <h3 id="welcome" className="text">
-        Welcome back to Web Name
-      </h3>
-      <h1 id="bigTit" className="text">
-        Sign Up
-      </h1>
-      <div className="inputItem signningItem">
-        <h3 className="edittingTitle">Email:</h3>
-        <input
-          type="text"
-          placeholder="Email"
-          onChange={updateEmail}
-          className="edittingBox"
-        ></input>
-      </div>
-      <div className="putAside">
-        <div className="inputItem signningItem">
-          <h3 className="edittingTitle">First Name:</h3>
+    <div className={loginStyle.contact_box}>
+      <div className={loginStyle.rightSignup}>
+        <h2 className={loginStyle.webName}>WebName</h2>
+        <h2 className={loginStyle.Title}>Welcome to WebName</h2>
+        <div className={loginStyle.onlyOne}>
           <input
             type="text"
-            placeholder="First Name"
-            onChange={updateFirstName}
-            className="creatName edittingBox"
+            placeholder="Email"
+            onChange={updateEmail}
+            className={loginStyle.field}
           ></input>
         </div>
-        <div className="inputItem signningItem">
-          <h3 className="edittingTitle">Last Name:</h3>
+
+        <input
+          type="text"
+          placeholder="First Name"
+          onChange={updateFirstName}
+          className={loginStyle.field2}
+        ></input>
+        <input
+          type="text"
+          placeholder="Last Name"
+          onChange={updateLastName}
+          className={loginStyle.field2}
+        ></input>
+        <div className={loginStyle.onlyOne}>
           <input
             type="text"
-            placeholder="Last Name"
-            onChange={updateLastName}
-            className="creatName edittingBox"
+            placeholder="Country"
+            onChange={updateCountry}
+            className={loginStyle.field}
           ></input>
         </div>
-      </div>
-      <div className="inputItem signningItem">
-        <h3 className="edittingTitle">Country:</h3>
-        <input
-          type="text"
-          placeholder="Country"
-          onChange={updateCountry}
-          className="edittingBox"
-        ></input>
-      </div>
-      <div className="inputItem signningItem">
-        <h3 className="edittingTitle">Bio:</h3>
-        <input
-          type="text"
-          placeholder="Your Bio!"
-          onChange={updateBio}
-          className="edittingBox"
-        ></input>
-      </div>
-      <div className="putAside">
-        <div className="inputItem signningItem">
-          <h3 className="edittingTitle">Password:</h3>
+        <div className={loginStyle.onlyOne}>
           <input
-            type="password"
-            placeholder="Password"
-            onChange={updatePassword}
-            className="edittingBox"
+            type="text"
+            placeholder="Your Bio!"
+            onChange={updateBio}
+            className={loginStyle.field}
           ></input>
         </div>
-        <div calssName="inputItem signningItem">
-          <h3 className="edittingTitle">Confirm Password:</h3>
-          <input
-            type="password"
-            placeholder="Confirm Password"
-            onChange={updateConfirmPassword}
-            className="edittingBox"
-          ></input>
-        </div>
-      </div>
-      <div className="bottomLinks">
-        <button onClick={submitting} className="button">
+        <input
+          type="password"
+          placeholder="Password"
+          onChange={updatePassword}
+          className={loginStyle.field2}
+        ></input>
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          onChange={updateConfirmPassword}
+          className={loginStyle.field2}
+        ></input>
+        <button onClick={submitting} className={loginStyle.btn}>
           Sign Up
         </button>
-        <h5 className="h5">
-          Do you already have an account? <Link to="/LogIn">Log In</Link>
-        </h5>
+        <h3 className={loginStyle.Title}>
+          Do you already have an account?
+          <Link to="/Login" className={loginStyle.link}>
+            Login
+          </Link>
+        </h3>
+      </div>
+      <div className={loginStyle.left}>
+        <img src={bg} alt="" />
+        <h1 id="welcome" className="text">
+          “A reader lives a thousand lives before he dies.”{" "}
+        </h1>
       </div>
     </div>
   );
