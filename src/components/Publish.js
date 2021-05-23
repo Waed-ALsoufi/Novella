@@ -27,7 +27,7 @@ function Publish(props) {
     setdescription(result.data.items[0].volumeInfo.description);
   };
 
-  const { name, email } = useAuth();
+  const { email, currentUser } = useAuth();
 
   const addNewPost = () => {
     fire
@@ -42,8 +42,8 @@ function Publish(props) {
         src: image.PhotoUrl,
         alt: image.alt || state.bookName,
         description: description,
-        userName: name,
         userEmail: email,
+        publisherId: currentUser.uid,
       });
   };
 

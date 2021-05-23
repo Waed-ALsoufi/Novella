@@ -15,6 +15,7 @@ export function AuthProvider({ children }) {
   const [email, setEmail] = useState("");
   const [country, setCountry] = useState("");
   const [bio, setBio] = useState("");
+  const [image, setImage] = useState();
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -47,6 +48,7 @@ export function AuthProvider({ children }) {
         setBio(doc.data().bio);
         setName(doc.data().firstName + " " + doc.data().lastName);
         setCountry(doc.data().country);
+        setImage(doc.data().image);
       });
   }
 
@@ -59,6 +61,7 @@ export function AuthProvider({ children }) {
     email,
     country,
     bio,
+    image,
   };
 
   return (

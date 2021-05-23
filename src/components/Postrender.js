@@ -76,7 +76,7 @@ function Postrender() {
             alt={post.alt}
             description={post.description}
             details={post.details}
-            userName={post.userName}
+            publisherId={post.publisherId}
             userEmail={post.userEmail}
           />
         ))}

@@ -16,12 +16,14 @@
   height: 230px;
   border-radius: 20px;
   float: left;
+  margin-left: 30px;
   margin-top: 50px;
-  margin-right: 50px;
+  margin-right: 70px;
+  object-fit: cover;
 }
 
 .area {
-  margin-top: 110px;
+  margin-top: 90px;
   padding: 0;
 }
 
@@ -39,12 +41,18 @@
 
 .editBtn {
   width: 250px;
-  height: 54px;
+  height: 52px;
   margin-top: 25px;
   margin-right: 65px;
-  background-color: #440a67;
-  color: aliceblue;
   float: right;
+  background-color: #440a67;
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
 }
 
 .editBtn:hover {

@@ -43,6 +43,8 @@ function SignUp(props) {
               firstName: firstName,
               lastName: lastName,
               country: country,
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/booksapp-b3ab6.appspot.com/o/UsersImage%2Fpfp1.png?alt=media&token=4fff021a-e5b7-45d9-af54-64e053a68819",
             });
           });
           console.log("Signup 🎉🎉");

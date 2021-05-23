@@ -67,6 +67,7 @@
   width: 30px;
   margin: 0;
   border-radius: 20px;
+  object-fit: cover;
 }
 
 .dropDownCaret {
