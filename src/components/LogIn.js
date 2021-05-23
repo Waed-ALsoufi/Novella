@@ -17,7 +17,6 @@ function LogIn(props) {
     try {
       await login(email, password);
       history.push("/");
-      console.log("Login 🎉🎉");
     } catch (error) {
       alert(error.message);
     }

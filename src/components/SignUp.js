@@ -44,10 +44,9 @@ function SignUp(props) {
               lastName: lastName,
               country: country,
               image:
-                "https://firebasestorage.googleapis.com/v0/b/booksapp-b3ab6.appspot.com/o/UsersImage%2Fpfp1.png?alt=media&token=4fff021a-e5b7-45d9-af54-64e053a68819",
+                "https://scontent.fgza9-1.fna.fbcdn.net/v/t1.15752-9/94199444_2475066079399209_8734392282242875392_n.png?_nc_cat=108&ccb=1-3&_nc_sid=ae9488&_nc_ohc=OyzjNBicZSEAX-9MYE7&_nc_ht=scontent.fgza9-1.fna&oh=3e9ccf54d67ab156f2f4c8e3d082f7e3&oe=60D23EB9",
             });
           });
-          console.log("Signup 🎉🎉");
           history.push("/");
         } catch (err) {
           alert(err.message);

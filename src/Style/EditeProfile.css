@@ -33,7 +33,6 @@
 .setImage::before {
   content: "Change Profile Image";
   display: inline-block;
-  /* background: linear-gradient(top, #f9f9f9, #e3e3e3); */
   border: 1px solid #999;
   outline: none;
   border-radius: 3px;
@@ -99,7 +98,6 @@ input::placeholder {
   margin-bottom: 20px;
 }
 .cancelBtn {
-  /* margin-top: 25px; */
   float: left;
   margin-left: 65px;
   background-color: aliceblue;

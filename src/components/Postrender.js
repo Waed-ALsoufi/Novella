@@ -56,7 +56,6 @@ function Postrender() {
           className={postStyle.SearchInput}
           onChange={(e) => {
             setsearchBook(e.target.value);
-            console.log(searchBook);
             filterByName(searchBook);
           }}
         />

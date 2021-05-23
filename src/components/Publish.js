@@ -22,8 +22,6 @@ function Publish(props) {
   const apiUrl = `https://www.googleapis.com/books/v1/volumes`;
   const fetchBooks = async (e) => {
     const result = await axios.get(`${apiUrl}?q=${state.bookName}`);
-    // Books result
-    console.log(result.data.items[0].volumeInfo.description);
     setdescription(result.data.items[0].volumeInfo.description);
   };
 
