@@ -10,6 +10,7 @@ function EditeProfile(props) {
   const [image, setImage] = useState(props.location.params.image);
   const [newImage, setNewImage] = useState();
   const [displayedImage, setDisplayedImage] = useState();
+  const [uploadedImage, setUploadedImage] = useState();
   const [firstName, setFirstName] = useState(name.substr(0, name.indexOf(" ")));
   const [lastName, setLastName] = useState(name.substr(name.indexOf(" ") + 1));
   const [bio, setBio] = useState(props.location.params.bio);
@@ -23,9 +24,12 @@ function EditeProfile(props) {
   const updateCountry = (e) => setCountry(e.target.value);
   const updateNewPassword = (e) => setNewPassword(e.target.value);
   const updateConfirmPassword = (e) => setConfrirmPassword(e.target.value);
-  const updateImage = (e) => setNewImage(e.target.files[0]);
+  const updateImage = (e) => {
+    setNewImage(e.target.files[0]);
+    setUploadedImage(e.target.files[0]);
+  };
 
-  const uploadData = () => {
+  const uploadData = (changeImage) => {
     app
       .firestore()
       .collection("users")
@@ -35,7 +39,7 @@ function EditeProfile(props) {
         firstName: firstName,
         lastName: lastName,
         country: country,
-        image: image,
+        image: changeImage,
       })
       .then(() => props.history.goBack());
   };
@@ -44,12 +48,12 @@ function EditeProfile(props) {
     const uploadTask = fire.storage().ref();
     uploadTask
       .child(`/users/${user.uid}`)
-      .put(newImage)
+      .put(uploadedImage)
       .then((snapshot) =>
         snapshot.ref.getDownloadURL().then((downloadURL) => {
           if (downloadURL) {
-            setImage(downloadURL);
-            uploadData();
+            const changeImage = downloadURL;
+            uploadData(changeImage);
           }
         })
       );
@@ -70,18 +74,18 @@ function EditeProfile(props) {
             if (newPassword !== confirmPassword) {
               alert("passwords must be identical");
             } else {
-              if (newImage) {
+              if (displayedImage) {
                 uploadImage();
               } else {
-                uploadData();
+                uploadData(image);
               }
             }
           }
         } else {
-          if (newImage) {
+          if (displayedImage) {
             uploadImage();
           } else {
-            uploadData();
+            uploadData(image);
           }
         }
       }

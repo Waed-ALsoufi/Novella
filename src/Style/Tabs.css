@@ -4,6 +4,7 @@
   display: flex;
   background-color: #ffe3fe;
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -18,6 +19,7 @@
 .bloc-tabs {
   display: flex;
 }
+
 .tabs {
   padding: 15px;
   text-align: center;
@@ -31,6 +33,7 @@
   font-size: 20px;
   font-family: "Playfair Display", serif;
 }
+
 .tabs:not(:last-child) {
   border-right: 1px solid rgba(0, 0, 0, 0.274);
 }
@@ -55,9 +58,11 @@
 .privBtn {
   border: none;
 }
+
 .content-tabs {
   flex-grow: 1;
 }
+
 .content {
   background: white;
   padding: 20px;
@@ -154,4 +159,24 @@
 
 .dataItem {
   margin-top: 8px;
+}
+
+.requestBtn {
+  width: 250px;
+  height: 110px;
+  margin-top: 300px;
+  margin-right: 65px;
+  float: right;
+  background-color: #440a67;
+  color: #fff;
+  font-size: 1.8rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+.requestBtn:hover {
+  background-color: #5c118a;
 }

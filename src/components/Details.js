@@ -18,12 +18,14 @@ function Details(props) {
     details,
     publisherId,
     userEmail,
+    uid,
   } = (props.location && props.location.props) || {};
 
   const [name, setName] = useState();
   const [country, setCountry] = useState();
   const [bio, setBio] = useState();
   const [image, setImage] = useState();
+  const [requests, setRequests] = useState([]);
 
   db.collection("users")
     .doc(publisherId)
@@ -33,12 +35,30 @@ function Details(props) {
       setCountry(doc.data().country);
       setBio(doc.data().bio);
       setImage(doc.data().image);
+      setRequests(doc.data().requests);
     });
 
   const [toggleState, setToggleState] = useState(1);
 
   const toggleTab = (index) => {
     setToggleState(index);
+  };
+
+  const request = () => {
+    console.log("Pressed");
+    if (publisherId !== uid) {
+      db.collection("AllPosts")
+        .doc(id)
+        .update({ requested: true, requester: uid })
+        .then(() => {
+          setRequests((request) => [...request, { book: id, user: uid }]);
+          console.log(requests);
+          console.log("Done!");
+        });
+      // db.collection("users").doc(publisherId).update({requests:})
+    } else {
+      console.log("YOU CAN'T REQUEST YOUR OWN BOOK!!!!");
+    }
   };
 
   return (
@@ -98,6 +118,10 @@ function Details(props) {
           </div>
         </div>
       ) : null}
+      {/* <button>Cancel</button> */}
+      <button className="requestBtn" onClick={request}>
+        Request
+      </button>
     </div>
   );
 }

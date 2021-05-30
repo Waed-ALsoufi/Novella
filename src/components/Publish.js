@@ -42,6 +42,8 @@ function Publish(props) {
         description: description,
         userEmail: email,
         publisherId: currentUser.uid,
+        requested: false,
+        requester: "",
       });
   };
 

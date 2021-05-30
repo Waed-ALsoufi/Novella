@@ -3,8 +3,10 @@ import Posts from "./Posts";
 import IsLoading from "./IsLoading";
 import postStyle from "../Style/Posts.module.css";
 import app from "./firebase";
+import { useAuth } from "./Auth";
 
-function Postrender() {
+function Postrender(props) {
+  const { currentUser } = useAuth();
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [renderpost, setrenderposts] = useState(posts);
@@ -77,6 +79,7 @@ function Postrender() {
             details={post.details}
             publisherId={post.publisherId}
             userEmail={post.userEmail}
+            uid={currentUser.uid}
           />
         ))}
       </div>
