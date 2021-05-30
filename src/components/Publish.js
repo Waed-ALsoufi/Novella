@@ -1,10 +1,11 @@
 // Waed ALsoufi
 import axios from "axios";
 import publishStyle from "../Style/Publish.module.css";
-import firebase from "./firebase";
+import fire from "./firebase";
 import "firebase/storage";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./Auth";
 
 function Publish(props) {
   const [state, setState] = useState({
@@ -21,13 +22,13 @@ function Publish(props) {
   const apiUrl = `https://www.googleapis.com/books/v1/volumes`;
   const fetchBooks = async (e) => {
     const result = await axios.get(`${apiUrl}?q=${state.bookName}`);
-    // Books result
-    console.log(result.data.items[0].volumeInfo.description);
     setdescription(result.data.items[0].volumeInfo.description);
   };
 
+  const { email, currentUser } = useAuth();
+
   const addNewPost = () => {
-    firebase
+    fire
       .firestore()
       .collection("AllPosts")
       .add({
@@ -39,6 +40,10 @@ function Publish(props) {
         src: image.PhotoUrl,
         alt: image.alt || state.bookName,
         description: description,
+        userEmail: email,
+        publisherId: currentUser.uid,
+        requested: false,
+        requester: "",
       });
   };
 
@@ -50,7 +55,7 @@ function Publish(props) {
       });
     }
 
-    var uploadTask = firebase.storage().ref();
+    var uploadTask = fire.storage().ref();
     uploadTask
       .child(`/books/${e.target.files[0].name}`)
       .put(e.target.files[0])

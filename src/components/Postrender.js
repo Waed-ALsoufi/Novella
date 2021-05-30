@@ -1,32 +1,34 @@
 import React, { useState, useEffect } from "react";
-import firebase from "./firebase";
 import Posts from "./Posts";
 import IsLoading from "./IsLoading";
 import postStyle from "../Style/Posts.module.css";
+import app from "./firebase";
+import { useAuth } from "./Auth";
 
-function Postrender() {
+function Postrender(props) {
+  const { currentUser } = useAuth();
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
-  const ref = firebase.firestore().collection("AllPosts");
-  const [renderpost, setrenderposts] = useState([]);
-  function getPosts() {
-    setisLoading(true);
-    ref.get().then((item) => {
-      const all = [];
-      setisLoading(false);
-      item.forEach((doc) => {
-        const data = doc.data();
-        data.id = doc.id;
-        all.push(data);
-      });
-      setPosts(all);
-      setrenderposts(all);
-    });
-  }
-  useEffect(() => {
-    getPosts();
-  }, []);
+  const [renderpost, setrenderposts] = useState(posts);
   const [searchBook, setsearchBook] = useState("");
+  useEffect(() => {
+    setisLoading(true);
+    app
+      .firestore()
+      .collection("AllPosts")
+      .get()
+      .then((item) => {
+        const all = [];
+        setisLoading(false);
+        item.forEach((doc) => {
+          const data = doc.data();
+          data.id = doc.id;
+          all.push(data);
+        });
+        setPosts(all);
+        setrenderposts(all);
+      });
+  }, []);
 
   function filterByName() {
     let filteredpost = posts.filter((post) => {
@@ -56,11 +58,10 @@ function Postrender() {
           className={postStyle.SearchInput}
           onChange={(e) => {
             setsearchBook(e.target.value);
-            console.log(searchBook);
             filterByName(searchBook);
           }}
         />
-        <i class="far fa-search"></i>
+        <i className="far fa-search"></i>
       </div>
 
       <div className={postStyle.AllBooks}>
@@ -76,6 +77,9 @@ function Postrender() {
             alt={post.alt}
             description={post.description}
             details={post.details}
+            publisherId={post.publisherId}
+            userEmail={post.userEmail}
+            uid={currentUser.uid}
           />
         ))}
       </div>

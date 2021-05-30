@@ -3,15 +3,22 @@ import Home from "./Home";
 import Posts from "./Postrender";
 import Publish from "./Publish";
 import Details from "./Details";
-import { Switch, Route } from "react-router-dom";
+import Profile from "./Profile";
+import EditeProfile from "./EditeProfile";
+import PrivateRoute from "./PrivateRoute";
+
+import { Switch } from "react-router-dom";
 
 const Routes = () => {
   return (
     <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/Posts" component={Posts} />
-      <Route path="/Publish" component={Publish} />
-      <Route path="/Details" component={Details} />
+      <PrivateRoute path="/" exact component={Home} />
+      <PrivateRoute path="/Profile" component={Profile} />
+      <PrivateRoute path="/Home" component={Home} />
+      <PrivateRoute path="/Posts" component={Posts} />
+      <PrivateRoute path="/Publish" component={Publish} />
+      <PrivateRoute path="/Details" component={Details} />
+      <PrivateRoute path="/EditeProfile" component={EditeProfile} />
     </Switch>
   );
 };

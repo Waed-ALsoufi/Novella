@@ -1,6 +1,5 @@
-import Reviws from './Reviws.js'
+import Reviws from "./Reviws.js";
 import Quotes from "./Quotes";
-// import  Slides from "./Slides";
 import "../Style/Home.css";
 import Slider from "./Slider";
 
@@ -8,7 +7,9 @@ const Home = () => {
   return (
     <div className="main">
       <Slider />
-      <div><Quotes /></div>
+      <div>
+        <Quotes />
+      </div>
 
       <Reviws />
       <button className="GoToMap">Go to map</button>
