@@ -11,12 +11,14 @@ function EditeProfile(props) {
   const [newImage, setNewImage] = useState();
   const [displayedImage, setDisplayedImage] = useState();
   const [uploadedImage, setUploadedImage] = useState();
+
   const [firstName, setFirstName] = useState(name.substr(0, name.indexOf(" ")));
   const [lastName, setLastName] = useState(name.substr(name.indexOf(" ") + 1));
   const [bio, setBio] = useState(props.location.params.bio);
   const [country, setCountry] = useState(props.location.params.country);
   const [newPassword, setNewPassword] = useState(null);
   const [confirmPassword, setConfrirmPassword] = useState();
+
 
   const updateFirstName = (e) => setFirstName(e.target.value);
   const updateLastName = (e) => setLastName(e.target.value);
@@ -28,6 +30,7 @@ function EditeProfile(props) {
     setNewImage(e.target.files[0]);
     setUploadedImage(e.target.files[0]);
   };
+
 
   const uploadData = (changeImage) => {
     app
@@ -42,6 +45,11 @@ function EditeProfile(props) {
         image: changeImage,
       })
       .then(() => props.history.goBack());
+    if (newPassword != null) {
+      if (newPassword == confirmPassword) {
+        user.updatePassword(newPassword).then(() => console.log("done"));
+      }
+    }
   };
 
   const uploadImage = () => {

@@ -21,6 +21,7 @@ function LogIn(props) {
       alert(error.message);
     }
   }
+
   return (
     <div>
       <div className={loginStyle.contact_box}>
