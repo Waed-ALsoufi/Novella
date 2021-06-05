@@ -40,7 +40,6 @@ function Details(props) {
       .then((book) => {
         if (book.exists) {
           setBooks(book.data());
-          console.log(book.data());
           book.data().requester.includes(consumerID)
             ? setIfRequest(true)
             : setIfRequest(false);
@@ -120,7 +119,6 @@ function Details(props) {
       });
   };
   const request = () => {
-    console.log("Pressed");
     updatePostRequest();
     updateRequestToOwner(bookOwner, consumerID);
     updateRequestToConsumer(bookOwner, consumerID);

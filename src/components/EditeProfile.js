@@ -19,7 +19,6 @@ function EditeProfile(props) {
   const [newPassword, setNewPassword] = useState(null);
   const [confirmPassword, setConfrirmPassword] = useState();
 
-
   const updateFirstName = (e) => setFirstName(e.target.value);
   const updateLastName = (e) => setLastName(e.target.value);
   const updateBio = (e) => setBio(e.target.value);
@@ -30,7 +29,6 @@ function EditeProfile(props) {
     setNewImage(e.target.files[0]);
     setUploadedImage(e.target.files[0]);
   };
-
 
   const uploadData = (changeImage) => {
     app
@@ -46,7 +44,7 @@ function EditeProfile(props) {
       })
       .then(() => props.history.goBack());
     if (newPassword != null) {
-      if (newPassword == confirmPassword) {
+      if (newPassword === confirmPassword) {
         user.updatePassword(newPassword).then(() => console.log("done"));
       }
     }
