@@ -1,127 +1,201 @@
 // Waed ALsoufi
-import { useState } from "react";
-import "../Style/Tabs.css";
+import { useState, useEffect } from "react";
+import detailsStyle from "../Style/Details.module.css";
 import { db } from "./firebase";
-import BookDetail from "./BookDetails";
-import UserDetails from "./UserDetails";
+import IsLoading from "./IsLoading";
+import app from "./firebase";
+import firebase from "firebase/app";
+
+import ReactMapGL, { Marker } from "react-map-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import Pin from "./pin";
+import { useAuth } from "./Auth";
 
 function Details(props) {
-  const {
-    bookName,
-    bookAuthor,
-    bookType,
-    bookLocation,
-    description,
-    id,
-    alt,
-    src,
-    details,
-    publisherId,
-    userEmail,
-    uid,
-  } = (props.location && props.location.props) || {};
+  const [books, setBooks] = useState([]);
+  const [owner, setOwner] = useState([]);
+  const [isLoading, setisLoading] = useState(false);
+  const [viewport, setViewport] = useState({
+    height: " 350px",
+    width: "250px",
+    zoom: 10,
+  });
+  const { currentUser } = useAuth();
+  const consumerID = currentUser.uid;
+  const bookOwner = books.publisherId;
+  const bookId = props.match.params.id;
+  const [ifrequest, setIfRequest] = useState();
+  useEffect(() => {
+    bookInfo(bookId);
+  }, []);
 
-  const [name, setName] = useState();
-  const [country, setCountry] = useState();
-  const [bio, setBio] = useState();
-  const [image, setImage] = useState();
-  const [requests, setRequests] = useState([]);
-
-  db.collection("users")
-    .doc(publisherId)
-    .get()
-    .then((doc) => {
-      setName(`${doc.data().firstName} ${doc.data().lastName}`);
-      setCountry(doc.data().country);
-      setBio(doc.data().bio);
-      setImage(doc.data().image);
-      setRequests(doc.data().requests);
-    });
-
-  const [toggleState, setToggleState] = useState(1);
-
-  const toggleTab = (index) => {
-    setToggleState(index);
+  const bookInfo = (bookId) => {
+    setisLoading(true);
+    app
+      .firestore()
+      .collection("AllPosts")
+      .doc(bookId)
+      .get()
+      .then((book) => {
+        if (book.exists) {
+          setBooks(book.data());
+          console.log(book.data());
+          book.data().requester.includes(consumerID)
+            ? setIfRequest(true)
+            : setIfRequest(false);
+          ownerInfo(book.data().publisherId);
+          setisLoading(false);
+        } else {
+          console.error("No such document!");
+        }
+      })
+      .catch(function (error) {
+        console.error("Error getting document:", error);
+      });
+  };
+  const ownerInfo = (ownerId) => {
+    app
+      .firestore()
+      .collection("users")
+      .doc(ownerId)
+      .get()
+      .then((owner) => {
+        if (owner.exists) {
+          setOwner(owner.data());
+        } else {
+          console.error("Owner undefined");
+        }
+      })
+      .catch(function (error) {
+        console.error("Error getting document:", error);
+      });
   };
 
+  const updatePostRequest = () => {
+    db.collection("AllPosts")
+      .doc(bookId)
+      .update({
+        requester: firebase.firestore.FieldValue.arrayUnion(consumerID),
+      })
+      .then(() => {
+        console.log("Document successfully updated!");
+        setIfRequest("Requested");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  };
+  const updateRequestToOwner = (OwnerId, consumerID) => {
+    db.collection("users")
+      .doc(OwnerId)
+      .update({
+        unapprovedExchanges: firebase.firestore.FieldValue.arrayUnion({
+          consumerID,
+          bookId,
+        }),
+      })
+      .then(() => {
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  };
+
+  const updateRequestToConsumer = (OwnerId, consumerID) => {
+    db.collection("users")
+      .doc(consumerID)
+      .update({
+        sentExchanges: firebase.firestore.FieldValue.arrayUnion({
+          consumerID,
+          bookId,
+        }),
+      })
+      .then(() => {
+        console.log("Document successfully updated!");
+      })
+      .catch((error) => {
+        console.error("Error updating document: ", error);
+      });
+  };
   const request = () => {
     console.log("Pressed");
-    if (publisherId !== uid) {
-      db.collection("AllPosts")
-        .doc(id)
-        .update({ requested: true, requester: uid })
-        .then(() => {
-          setRequests((request) => [...request, { book: id, user: uid }]);
-          console.log(requests);
-          console.log("Done!");
-        });
-      // db.collection("users").doc(publisherId).update({requests:})
-    } else {
-      console.log("YOU CAN'T REQUEST YOUR OWN BOOK!!!!");
-    }
+    updatePostRequest();
+    updateRequestToOwner(bookOwner, consumerID);
+    updateRequestToConsumer(bookOwner, consumerID);
   };
-
+  const ownerDetails = (
+    <div className={detailsStyle.userLabel}>
+      {consumerID !== books.publisherId ? (
+        <div>
+          <h4 className={detailsStyle.description}>
+            You can get this book from:
+          </h4>
+          <img
+            style={{ display: "inline" }}
+            alt={owner.owner}
+            src={owner.image}
+            className={detailsStyle.publisherImg}
+          />
+          <h3 className={detailsStyle.dataItem} style={{ display: "inline" }}>
+            {`${owner.firstName} ${owner.lastName}`}
+          </h3>
+          {ifrequest ? (
+            <button className={detailsStyle.requestedBtn}>Requested</button>
+          ) : (
+            <button className={detailsStyle.requestBtn} onClick={request}>
+              Request
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className={detailsStyle.description}>Provided by you!</div>
+      )}
+    </div>
+  );
+  if (isLoading) {
+    return <IsLoading />;
+  }
   return (
-    <div className="detaills">
-      {bookName ? (
-        <div className="container" key={id}>
-          <div className="bloc-tabs">
-            <button
-              className={
-                toggleState === 1 ? "tabs active-tabs privBtn" : "tabs privBtn"
-              }
-              onClick={() => toggleTab(1)}
-            >
-              Book Details
-            </button>
-            <button
-              className={
-                toggleState === 2 ? "tabs active-tabs privBtn" : "tabs privBtn"
-              }
-              onClick={() => toggleTab(2)}
-            >
-              User Details
-            </button>
+    <div className={detailsStyle.detaills}>
+      <div className={detailsStyle.detaillscontainer}>
+        <div className={detailsStyle.left}>
+          <h2 className={detailsStyle.Title}>{books.bookName}</h2>
+          <h5 className={detailsStyle.Title2}>By {books.bookAuthor}</h5>
+          <div className={detailsStyle.BookImage}>
+            <img src={books.src} alt={books.alt} />
           </div>
-
-          <div className="content-tabs">
-            <div
-              className={
-                toggleState === 1 ? "content  active-content" : "content"
-              }
+          <h3 className={detailsStyle.description}>Description</h3>
+          <p className={detailsStyle.BookInfo}>{books.description}</p>
+        </div>
+        <div className={detailsStyle.right}>
+          <div>
+            {" "}
+            <h2 className={detailsStyle.Title}> Location</h2>
+            <ReactMapGL
+              {...viewport}
+              longitude={books.longitude}
+              latitude={books.latitude}
+              mapboxApiAccessToken="pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw"
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              onViewportChange={(viewport) => {
+                setViewport(viewport);
+              }}
             >
-              <BookDetail
-                src={src}
-                alt={alt}
-                bookName={bookName}
-                bookAuthor={bookAuthor}
-                bookType={bookType}
-                bookLocation={bookLocation}
-                description={description}
-                details={details}
-              />
-            </div>
-
-            <div
-              className={
-                toggleState === 2 ? "content  active-content" : " content"
-              }
-            >
-              <UserDetails
-                image={image}
-                name={name}
-                userEmail={userEmail}
-                country={country}
-                bio={bio}
-              />
-            </div>
+              <Marker
+                longitude={books.longitude}
+                latitude={books.latitude}
+                offsetTop={-20}
+                offsetLeft={-10}
+              >
+                <Pin size={20} />
+              </Marker>
+            </ReactMapGL>
+            <div className={detailsStyle.userLabel}>{ownerDetails}</div>
           </div>
         </div>
-      ) : null}
-      {/* <button>Cancel</button> */}
-      <button className="requestBtn" onClick={request}>
-        Request
-      </button>
+      </div>
     </div>
   );
 }
