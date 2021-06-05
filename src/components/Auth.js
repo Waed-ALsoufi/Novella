@@ -11,12 +11,16 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [country, setCountry] = useState("");
   const [bio, setBio] = useState("");
-  const [image, setImage] = useState();
+  const [avatar, setAvatar] = useState();
   // const [requests, setRequests] = useState([]);
+  const [location, setLocation] = useState({
+    longitude: "",
+    latitude: "",
+  });
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -37,6 +41,26 @@ export function AuthProvider({ children }) {
 
     return unsubscribe;
   }, []);
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 2000,
+    maximumAge: 0,
+  };
+
+  function success(pos) {
+    var crd = pos.coords;
+    setLocation({
+      longitude: crd.longitude,
+      latitude: crd.latitude,
+    });
+  }
+
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(success, error, options);
+  }, []);
   if (currentUser) {
     app
       .firestore()
@@ -46,9 +70,9 @@ export function AuthProvider({ children }) {
       .then((doc) => {
         setEmail(currentUser.email);
         setBio(doc.data().bio);
-        setName(doc.data().firstName + " " + doc.data().lastName);
+        setUsername(doc.data().firstName + " " + doc.data().lastName);
         setCountry(doc.data().country);
-        setImage(doc.data().image);
+        setAvatar(doc.data().image);
         // setRequests(doc.data().requests);
       });
   }
@@ -58,12 +82,13 @@ export function AuthProvider({ children }) {
     login,
     signup,
     logout,
-    name,
+    username,
     email,
     country,
     bio,
-    image,
+    avatar,
     // requests,
+    location,
   };
 
   return (

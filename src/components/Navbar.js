@@ -9,7 +9,7 @@ function Navbar() {
   const [dropdown, setDropdown] = useState(false);
 
   const closeMobileMenu = () => setClick(false);
-  const { currentUser, image } = useAuth();
+  const { currentUser, avatar } = useAuth();
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -56,7 +56,7 @@ function Navbar() {
           >
             <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
               <i className="fas fa-caret-down" />
-              <img src={image} className="userPicNav" alt="profile" />
+              <img src={avatar} className="userPicNav" alt="profile" />
               <span className="dropDownCaret"></span>{" "}
             </Link>
             {dropdown ? <Dropdown /> : null}
