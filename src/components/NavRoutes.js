@@ -17,7 +17,7 @@ const Routes = () => {
       <PrivateRoute path="/Home" component={Home} />
       <PrivateRoute path="/Posts" component={Posts} />
       <PrivateRoute path="/Publish" component={Publish} />
-      <PrivateRoute path="/Details" component={Details} />
+      <PrivateRoute path="/Details/:id" component={Details} />
       <PrivateRoute path="/EditeProfile" component={EditeProfile} />
     </Switch>
   );

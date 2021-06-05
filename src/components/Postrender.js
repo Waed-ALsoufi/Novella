@@ -3,13 +3,16 @@ import Posts from "./Posts";
 import IsLoading from "./IsLoading";
 import postStyle from "../Style/Posts.module.css";
 import app from "./firebase";
+import { useAuth } from "./Auth";
 
-function Postrender() {
+function Postrender(props) {
+  const { currentUser } = useAuth();
   const [posts, setPosts] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [renderpost, setrenderposts] = useState(posts);
   const [searchBook, setsearchBook] = useState("");
   useEffect(() => {
+    let active = true;
     setisLoading(true);
     app
       .firestore()
@@ -17,17 +20,22 @@ function Postrender() {
       .get()
       .then((item) => {
         const all = [];
-        setisLoading(false);
         item.forEach((doc) => {
           const data = doc.data();
           data.id = doc.id;
           all.push(data);
         });
-        setPosts(all);
-        setrenderposts(all);
+        if (active) {
+          setPosts(all);
+          setrenderposts(all);
+          setisLoading(false);
+        }
       });
-  }, []);
 
+    return () => {
+      active = false;
+    };
+  }, []);
   function filterByName() {
     let filteredpost = posts.filter((post) => {
       return (
@@ -56,28 +64,28 @@ function Postrender() {
           className={postStyle.SearchInput}
           onChange={(e) => {
             setsearchBook(e.target.value);
-            console.log(searchBook);
             filterByName(searchBook);
           }}
         />
         <i className="far fa-search"></i>
       </div>
-
       <div className={postStyle.AllBooks}>
         {renderpost.map((post, index) => (
           <Posts
             key={index}
+            index={index}
             bookName={post.bookName}
             id={post.id}
             bookAuthor={post.bookAuthor}
             bookType={post.bookType}
-            bookLocation={post.bookLocation}
             src={post.src}
             alt={post.alt}
             description={post.description}
-            details={post.details}
-            userName={post.userName}
+            publisherId={post.publisherId}
             userEmail={post.userEmail}
+            uid={currentUser.uid}
+            latitude={post.latitude}
+            longitude={post.longitude}
           />
         ))}
       </div>

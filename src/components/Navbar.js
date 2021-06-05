@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../Style/Navbar.css";
 import Dropdown from "./Dropdown";
-import userPic from "../Images/pfp2.png";
 import { useAuth } from "./Auth";
 
 function Navbar() {
@@ -10,7 +9,7 @@ function Navbar() {
   const [dropdown, setDropdown] = useState(false);
 
   const closeMobileMenu = () => setClick(false);
-  const { currentUser } = useAuth();
+  const { currentUser, avatar } = useAuth();
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -57,7 +56,7 @@ function Navbar() {
           >
             <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
               <i className="fas fa-caret-down" />
-              <img src={userPic} className="userPicNav" alt="" />
+              <img src={avatar} className="userPicNav" alt="profile" />
               <span className="dropDownCaret"></span>{" "}
             </Link>
             {dropdown ? <Dropdown /> : null}
