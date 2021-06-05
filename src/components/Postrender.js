@@ -12,6 +12,7 @@ function Postrender(props) {
   const [renderpost, setrenderposts] = useState(posts);
   const [searchBook, setsearchBook] = useState("");
   useEffect(() => {
+    let active = true;
     setisLoading(true);
     app
       .firestore()
@@ -19,17 +20,22 @@ function Postrender(props) {
       .get()
       .then((item) => {
         const all = [];
-        setisLoading(false);
         item.forEach((doc) => {
           const data = doc.data();
           data.id = doc.id;
           all.push(data);
         });
-        setPosts(all);
-        setrenderposts(all);
+        if (active) {
+          setPosts(all);
+          setrenderposts(all);
+          setisLoading(false);
+        }
       });
-  }, []);
 
+    return () => {
+      active = false;
+    };
+  }, []);
   function filterByName() {
     let filteredpost = posts.filter((post) => {
       return (
@@ -63,23 +69,23 @@ function Postrender(props) {
         />
         <i className="far fa-search"></i>
       </div>
-
       <div className={postStyle.AllBooks}>
         {renderpost.map((post, index) => (
           <Posts
             key={index}
+            index={index}
             bookName={post.bookName}
             id={post.id}
             bookAuthor={post.bookAuthor}
             bookType={post.bookType}
-            bookLocation={post.bookLocation}
             src={post.src}
             alt={post.alt}
             description={post.description}
-            details={post.details}
             publisherId={post.publisherId}
             userEmail={post.userEmail}
             uid={currentUser.uid}
+            latitude={post.latitude}
+            longitude={post.longitude}
           />
         ))}
       </div>
