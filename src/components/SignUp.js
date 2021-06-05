@@ -45,8 +45,8 @@ function SignUp(props) {
               country: country,
               image:
                 "https://scontent.fgza9-1.fna.fbcdn.net/v/t1.15752-9/94199444_2475066079399209_8734392282242875392_n.png?_nc_cat=108&ccb=1-3&_nc_sid=ae9488&_nc_ohc=OyzjNBicZSEAX-9MYE7&_nc_ht=scontent.fgza9-1.fna&oh=3e9ccf54d67ab156f2f4c8e3d082f7e3&oe=60D23EB9",
-              requests: [],
-              userRequested: [],
+              sentExchanges: [],
+              unapprovedExchanges: [],
             });
           });
           history.push("/");

@@ -4,14 +4,14 @@ import { useAuth } from "./Auth";
 import { Link } from "react-router-dom";
 
 function Profile(props) {
-  const { currentUser, name, email, country, bio, image } = useAuth();
+  const { currentUser, username, email, country, bio, avatar } = useAuth();
 
   return (
     <div className="profile">
       <div className="card">
-        <img src={image} className="userPic" alt="" />
+        <img src={avatar} className="userPic" alt="" />
         <div className="area">
-          <h2 className="name data">Name: {name}</h2>
+          <h2 className="name data">Name: {username}</h2>
           <h4 className="email data">email: {email}</h4>
           <h4 className="userName data">Countrty: {country}</h4>
           <h5
@@ -29,10 +29,10 @@ function Profile(props) {
           pathname: "/EditeProfile",
           params: {
             user: currentUser,
-            name: name,
+            name: username,
             country: country,
             bio: bio,
-            image: image,
+            image: avatar,
           },
         }}
       >
