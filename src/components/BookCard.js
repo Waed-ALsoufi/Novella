@@ -4,7 +4,7 @@ import postStyle from "../Style/Posts.module.css";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import app from "./firebase";
-function Posts(props) {
+function BookCard(props) {
   const [username, setUsername] = useState("");
   const [avatar, setAvatar] = useState();
   useEffect(() => {
@@ -62,4 +62,4 @@ function Posts(props) {
   );
 }
 
-export default Posts;
+export default BookCard;

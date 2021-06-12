@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import detailsStyle from "../Style/Details.module.css";
 import { db } from "./firebase";
-import IsLoading from "./IsLoading";
+import Loading from "./Loading";
 import app from "./firebase";
 import firebase from "firebase/app";
 
@@ -153,7 +153,7 @@ function Details(props) {
     </div>
   );
   if (isLoading) {
-    return <IsLoading />;
+    return <Loading />;
   }
   return (
     <div className={detailsStyle.detaills}>

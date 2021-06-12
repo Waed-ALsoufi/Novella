@@ -3,7 +3,7 @@
 import React from "react";
 import "../Style/IsLoading.css";
 
-function IsLoading() {
+function Loading() {
   return (
     <div className="loading">
       <div className="circle"></div>
@@ -16,4 +16,4 @@ function IsLoading() {
     </div>
   );
 }
-export default IsLoading;
+export default Loading;

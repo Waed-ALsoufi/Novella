@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap");
-.BooksList {
+.BooksPage {
   min-height: 100vh;
   background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
   padding: 90px;
@@ -23,7 +23,7 @@
   outline: none;
   transition: 0.3s;
 }
-.AllBooks {
+.BooksList {
   padding: 10px;
   text-align: center;
   display: flex;
