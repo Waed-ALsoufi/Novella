@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Login from "../components/LogIn";
-import SignUp from "../components/SignUp";
-import { AuthProvider } from "../components/Auth";
-import Home from "../components//Home";
+import Navbar from "../Components/Navbar";
+import Login from "../Components/LogIn";
+import SignUp from "../Components/SignUp";
+import { AuthProvider } from "../Components/Auth";
+import Home from "../Components//Home";
 import BooksPage from "../pages/BooksPage";
 import AddBookPage from "../pages/AddBookPage";
 import BookDetails from "../pages/BookDetails";
-import Profile from "../components//Profile";
-import EditeProfile from "../components//EditeProfile";
-import PrivateRoute from "../components//PrivateRoute";
+import Profile from "../Components//Profile";
+import EditeProfile from "../Components//EditeProfile";
+import PrivateRoute from "../Components//PrivateRoute";
 
 function Main() {
     return (

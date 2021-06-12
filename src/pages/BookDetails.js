@@ -1,12 +1,12 @@
 // Waed ALsoufi
 import { useState, useEffect } from "react";
 import detailsStyle from "../Style/Details.module.css";
-import { db } from "../components/firebase";
-import Loading from "../components/Loading";
-import app from "../components/firebase";
+import { db } from "../Components/firebase";
+import Loading from "../Components/Loading";
+import app from "../Components/firebase";
 import firebase from "firebase/app";
-import Pin from "../components/pin";
-import { useAuth } from "../components/Auth";
+import Pin from "../Components/pin";
+import { useAuth } from "../Components/Auth";
 
 
 import ReactMapGL, { Marker } from "react-map-gl";

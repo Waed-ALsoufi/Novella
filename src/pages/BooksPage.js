@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import BookCard from "../components/BookCard";
-import Loading from "../components/Loading";
+import BookCard from "../Components/BookCard";
+import Loading from "../Components/Loading";
 import postStyle from "../Style/Posts.module.css";
-import app from "../components/firebase";
-import { useAuth } from "../components/Auth";
+import app from "../Components/firebase";
+import { useAuth } from "../Components/Auth";
 
 function BooksPage(props) {
     const { currentUser } = useAuth();
