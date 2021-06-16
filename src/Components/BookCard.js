@@ -1,26 +1,28 @@
 // Waed ALsoufi
 
-import postStyle from "../Style/Posts.module.css";
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import app from "./firebase";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import postStyle from '../Style/Posts.module.css';
+import app from './firebase';
+
 function BookCard(props) {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState();
+  const {
+    publisherId, id, bookName, bookAuthor, description, alt, src,
+  } = props;
   useEffect(() => {
     let active = true;
-
     app
       .firestore()
-      .collection("users")
-      .doc(props.publisherId)
+      .collection('users')
+      .doc(publisherId)
       .get()
       .then((doc) => {
         if (active) {
-          setUsername(doc.data().firstName + " " + doc.data().lastName);
+          setUsername(`${doc.data().firstName} ${doc.data().lastName}`);
           setAvatar(doc.data().image);
         }
-        // setRequests(doc.data().requests);
       });
     return () => {
       active = false;
@@ -29,29 +31,29 @@ function BookCard(props) {
 
   return (
     <Link
-      style={{ textDecoration: "none", color: "black" }}
+      style={{ textDecoration: 'none', color: 'black' }}
       to={{
-        pathname: `/Details/${props.id}`,
+        pathname: `/Details/${id}`,
       }}
     >
-      <div className={postStyle.Bookcard} key={props.id}>
+      <div className={postStyle.Bookcard} key={id}>
         <div className={postStyle.BookImage}>
-          <img alt={`${props.alt} book`} src={props.src} />
+          <img alt={`${alt} book`} src={src} />
         </div>
         <div className={postStyle.BookContent}>
-          <h3 className={postStyle.BookTitle}>{props.bookName}</h3>
-          <h5 className={postStyle.BookAuthor}>{props.bookAuthor}</h5>
-          <p className={postStyle.BookDescription}>{props.description}</p>
+          <h3 className={postStyle.BookTitle}>{bookName}</h3>
+          <h5 className={postStyle.BookAuthor}>{bookAuthor}</h5>
+          <p className={postStyle.BookDescription}>{description}</p>
           <div className={postStyle.userLabel}>
             <img
-              style={{ display: "inline" }}
+              style={{ display: 'inline' }}
               alt={username}
               src={avatar}
               className={postStyle.publisherImg}
             />
             <h3
               className={postStyle.publisherName}
-              style={{ display: "inline" }}
+              style={{ display: 'inline' }}
             >
               {username}
             </h3>
@@ -61,5 +63,4 @@ function BookCard(props) {
     </Link>
   );
 }
-
 export default BookCard;
