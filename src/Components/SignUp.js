@@ -62,8 +62,8 @@ function SignUp() {
   return (
     <div className={loginStyle.contact_box}>
       <div className={loginStyle.rightSignup}>
-        <h2 className={loginStyle.webName}>WebName</h2>
-        <h2 className={loginStyle.Title}>Welcome to WebName</h2>
+        <h2 className={loginStyle.webName}>Novella</h2>
+        <h2 className={loginStyle.Title}>Welcome to Novella</h2>
         <div className={loginStyle.onlyOne}>
           <input
             type="text"

@@ -28,8 +28,8 @@ function LogIn() {
     <div>
       <div className={loginStyle.contact_box}>
         <div className={loginStyle.rightLogin}>
-          <h2 className={loginStyle.webName}>WebName</h2>
-          <h2 className={loginStyle.Title}>Welcome to WebName</h2>
+          <h2 className={loginStyle.webName}>Novella</h2>
+          <h2 className={loginStyle.Title}>Welcome to Novella</h2>
           <input
             type="text"
             className={loginStyle.field}

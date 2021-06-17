@@ -23,6 +23,9 @@
   outline: none;
   transition: 0.3s;
 }
+.SearchInput:focus{
+  outline: none;
+}
 .BooksList {
   padding: 10px;
   text-align: center;
