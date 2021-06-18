@@ -1,0 +1,137 @@
+.editProfile {
+  margin-top: 80px;
+  margin-left: 30px;
+}
+
+.edittingTitle {
+  margin-bottom: 2px;
+  font-family: Playfair Display;
+  font-style: normal;
+  line-height: 44px;
+  color: #440a67;
+}
+
+.editeImage {
+  width: 230px;
+  height: 230px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.setImage {
+  margin-bottom: 50px;
+  margin-left: 40px;
+  width: 180px;
+}
+
+.setImage::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.setImage::before {
+  content: "Change Profile Image";
+  display: inline-block;
+  border: 1px solid #999;
+  outline: none;
+  border-radius: 3px;
+  padding: 5px 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+  -webkit-user-select: none;
+}
+
+.setImage:hover::before {
+  border-color: black;
+}
+
+.setImage:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.leftStuff {
+  padding-left: 0;
+}
+
+.putAside {
+  display: flex;
+  padding-left: 0;
+}
+
+.inputItem {
+  margin-bottom: 50px;
+  margin-right: 70px;
+}
+
+.edittingBox {
+  width: 365px;
+  height: 50px;
+  margin-left: 0;
+  margin-bottom: 25px;
+  padding: 0.5rem 1rem;
+  display: block;
+  outline: none;
+  font-size: 1.1rem;
+  font-family: "Courier Prime", monospace;
+  transition: 0.3s;
+  border: 2px solid #440a67;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background-color: rgba(230, 230, 230, 0.6);
+}
+
+input[type="text"] .creatName {
+  display: inline;
+}
+
+input:focus {
+  outline: 3px solid white;
+}
+
+input::placeholder {
+  margin: 0;
+}
+
+.btns {
+  width: 250px;
+  height: 54px;
+  margin-bottom: 20px;
+}
+.cancelBtn {
+  float: left;
+  margin-left: 65px;
+  background-color: aliceblue;
+  color: rgb(0, 0, 0);
+  font-size: 1.1rem;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+  border: 0.1px solid black;
+}
+
+.cancelBtn:hover {
+  background-color: rgba(212, 216, 219, 0.842);
+  border: none;
+}
+
+.saveBtn {
+  float: right;
+  margin-right: 155px;
+  background-color: #440a67;
+  color: #fff;
+  font-size: 1.1rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+
+.saveBtn:hover {
+  background-color: #5c118a;
+}
