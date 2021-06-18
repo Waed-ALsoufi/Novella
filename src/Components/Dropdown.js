@@ -1,19 +1,21 @@
-import React, { useState } from "react";
-import "../Style/Dropdown.css";
-import { Link } from "react-router-dom";
-import { useAuth } from "./Auth";
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react';
+import '../Style/Dropdown.css';
+import { Link } from 'react-router-dom';
+import { useAuth } from './Auth';
 
 function Dropdown() {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
-  const { logout } = useAuth();
+  const { logOut } = useAuth();
 
   return (
     <>
       <ul
         onClick={handleClick}
-        className={click ? "dropdown-menu clicked" : "dropdown-menu"}
+        className={click ? 'dropdown-menu clicked' : 'dropdown-menu'}
       >
         <li>
           <Link
@@ -25,7 +27,7 @@ function Dropdown() {
           </Link>
         </li>
         <li>
-          <Link className="dropdown-link" to="/Logout" onClick={logout}>
+          <Link className="dropdown-link" to="/Logout" onClick={logOut}>
             log out
           </Link>
         </li>

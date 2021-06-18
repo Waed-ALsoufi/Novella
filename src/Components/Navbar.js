@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import "../Style/Navbar.css";
-import Dropdown from "./Dropdown";
-import { useAuth } from "./Auth";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../Style/Navbar.css';
+import Dropdown from './Dropdown';
+import { useAuth } from './Auth';
 
 function Navbar() {
   const [click, setClick] = useState(false);
@@ -31,9 +31,9 @@ function Navbar() {
     <>
       <nav className="navbar">
         <Link to="/Home" className="navbar-logo">
-          WebSite Name
+          Novella
         </Link>
-        <ul className={click ? "nav-menu active" : "nav-menu"}>
+        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           <li className="nav-item">
             <Link to="/Home" className="nav-links">
               Home
@@ -57,7 +57,7 @@ function Navbar() {
             <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
               <i className="fas fa-caret-down" />
               <img src={avatar} className="userPicNav" alt="profile" />
-              <span className="dropDownCaret"></span>{" "}
+              <span className="dropDownCaret" />
             </Link>
             {dropdown ? <Dropdown /> : null}
           </li>

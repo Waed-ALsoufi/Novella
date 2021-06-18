@@ -1,92 +1,96 @@
+/* eslint-disable func-names */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/button-has-type */
 // Waed ALsoufi
-import { useState, useEffect } from "react";
-import detailsStyle from "../Style/Details.module.css";
-import { db } from "./firebase";
-import IsLoading from "./IsLoading";
-import app from "./firebase";
-import firebase from "firebase/app";
+import React, { useState, useEffect } from 'react';
+import firebase from 'firebase/app';
+import ReactMapGL, { Marker } from 'react-map-gl';
+import detailsStyle from '../Style/Details.module.css';
+import app, { db } from '../Components/firebase';
+import Loading from '../Components/Loading';
 
-import ReactMapGL, { Marker } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import Pin from "./pin";
-import { useAuth } from "./Auth";
+import Pin from '../Components/pin';
+import { useAuth } from '../Components/Auth';
+
+import 'mapbox-gl/dist/mapbox-gl.css';
+import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 function Details(props) {
   const [books, setBooks] = useState([]);
   const [owner, setOwner] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [viewport, setViewport] = useState({
-    height: " 350px",
-    width: "250px",
+    height: ' 350px',
+    width: '250px',
     zoom: 10,
   });
   const { currentUser } = useAuth();
   const consumerID = currentUser.uid;
   const bookOwner = books.publisherId;
+  // eslint-disable-next-line react/destructuring-assignment
   const bookId = props.match.params.id;
   const [ifrequest, setIfRequest] = useState();
-  useEffect(() => {
-    bookInfo(bookId);
-  }, []);
-
-  const bookInfo = (bookId) => {
-    setisLoading(true);
-    app
-      .firestore()
-      .collection("AllPosts")
-      .doc(bookId)
-      .get()
-      .then((book) => {
-        if (book.exists) {
-          setBooks(book.data());
-          book.data().requester.includes(consumerID)
-            ? setIfRequest(true)
-            : setIfRequest(false);
-          ownerInfo(book.data().publisherId);
-          setisLoading(false);
-        } else {
-          console.error("No such document!");
-        }
-      })
-      .catch(function (error) {
-        console.error("Error getting document:", error);
-      });
-  };
   const ownerInfo = (ownerId) => {
     app
       .firestore()
-      .collection("users")
+      .collection('users')
       .doc(ownerId)
       .get()
-      .then((owner) => {
-        if (owner.exists) {
-          setOwner(owner.data());
+      .then((Bookowner) => {
+        if (Bookowner.exists) {
+          setOwner(Bookowner.data());
         } else {
-          console.error("Owner undefined");
+          console.error('Owner undefined');
         }
       })
-      .catch(function (error) {
-        console.error("Error getting document:", error);
+      .catch((error) => {
+        console.error('Error getting document:', error);
       });
   };
+  useEffect(() => {
+    const bookInfo = () => {
+      setisLoading(true);
+      app
+        .firestore()
+        .collection('AllPosts')
+        .doc(bookId)
+        .get()
+        .then((book) => {
+          if (book.exists) {
+            setBooks(book.data());
+            // eslint-disable-next-line no-unused-expressions
+            book.data().requester.includes(consumerID)
+              ? setIfRequest(true)
+              : setIfRequest(false);
+            ownerInfo(book.data().publisherId);
+            setisLoading(false);
+          } else {
+            console.error('No such document!');
+          }
+        })
+        .catch((error) => {
+          console.error('Error getting document:', error);
+        });
+    };
+    bookInfo();
+  }, [bookId, consumerID]);
 
   const updatePostRequest = () => {
-    db.collection("AllPosts")
+    db.collection('AllPosts')
       .doc(bookId)
       .update({
         requester: firebase.firestore.FieldValue.arrayUnion(consumerID),
       })
       .then(() => {
-        console.log("Document successfully updated!");
-        setIfRequest("Requested");
+        console.log('Document successfully updated!');
+        setIfRequest('Requested');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   };
-  const updateRequestToOwner = (OwnerId, consumerID) => {
-    db.collection("users")
+  const updateRequestToOwner = (OwnerId) => {
+    db.collection('users')
       .doc(OwnerId)
       .update({
         unapprovedExchanges: firebase.firestore.FieldValue.arrayUnion({
@@ -95,27 +99,27 @@ function Details(props) {
         }),
       })
       .then(() => {
-        console.log("Document successfully updated!");
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   };
 
-  const updateRequestToConsumer = (OwnerId, consumerID) => {
-    db.collection("users")
+  const updateRequestToConsumer = (OwnerId) => {
+    db.collection('users')
       .doc(consumerID)
       .update({
         sentExchanges: firebase.firestore.FieldValue.arrayUnion({
-          consumerID,
+          OwnerId,
           bookId,
         }),
       })
       .then(() => {
-        console.log("Document successfully updated!");
+        console.log('Document successfully updated!');
       })
       .catch((error) => {
-        console.error("Error updating document: ", error);
+        console.error('Error updating document: ', error);
       });
   };
   const request = () => {
@@ -131,12 +135,12 @@ function Details(props) {
             You can get this book from:
           </h4>
           <img
-            style={{ display: "inline" }}
+            style={{ display: 'inline' }}
             alt={owner.owner}
             src={owner.image}
             className={detailsStyle.publisherImg}
           />
-          <h3 className={detailsStyle.dataItem} style={{ display: "inline" }}>
+          <h3 className={detailsStyle.dataItem} style={{ display: 'inline' }}>
             {`${owner.firstName} ${owner.lastName}`}
           </h3>
           {ifrequest ? (
@@ -153,14 +157,17 @@ function Details(props) {
     </div>
   );
   if (isLoading) {
-    return <IsLoading />;
+    return <Loading />;
   }
   return (
     <div className={detailsStyle.detaills}>
       <div className={detailsStyle.detaillscontainer}>
         <div className={detailsStyle.left}>
           <h2 className={detailsStyle.Title}>{books.bookName}</h2>
-          <h5 className={detailsStyle.Title2}>By {books.bookAuthor}</h5>
+          <h5 className={detailsStyle.Title2}>
+            By
+            {books.bookAuthor}
+          </h5>
           <div className={detailsStyle.BookImage}>
             <img src={books.src} alt={books.alt} />
           </div>
@@ -169,7 +176,7 @@ function Details(props) {
         </div>
         <div className={detailsStyle.right}>
           <div>
-            {" "}
+            {' '}
             <h2 className={detailsStyle.Title}> Location</h2>
             <ReactMapGL
               {...viewport}
@@ -177,7 +184,7 @@ function Details(props) {
               latitude={books.latitude}
               mapboxApiAccessToken="pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw"
               mapStyle="mapbox://styles/mapbox/streets-v11"
-              onViewportChange={(viewport) => {
+              onViewportChange={() => {
                 setViewport(viewport);
               }}
             >
