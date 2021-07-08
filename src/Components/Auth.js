@@ -15,9 +15,10 @@ export function AuthProvider({ children }) {
   const [country, setCountry] = useState('');
   const [bio, setBio] = useState('');
   const [avatar, setAvatar] = useState();
+  const [UserId, setUserId] = useState('');
   const [location, setLocation] = useState({
-    longitude: 34.2500,
-    latitude: 32.0000,
+    longitude: 34.25,
+    latitude: 32.0,
   });
 
   function signUp(Email, password) {
@@ -31,12 +32,10 @@ export function AuthProvider({ children }) {
     return auth.signOut();
   }
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
       setLoading(false);
     });
-
-    return unsubscribe;
   }, []);
 
   function success(pos) {
@@ -58,6 +57,7 @@ export function AuthProvider({ children }) {
     };
     navigator.geolocation.getCurrentPosition(success, error, options);
   }, []);
+
   if (currentUser) {
     app
       .firestore()
@@ -70,9 +70,9 @@ export function AuthProvider({ children }) {
         setUsername(`${doc.data().firstName} ${doc.data().lastName}`);
         setCountry(doc.data().country);
         setAvatar(doc.data().image);
+        setUserId(currentUser.uid);
       });
   }
-
   const value = {
     currentUser,
     logIn,
@@ -84,6 +84,7 @@ export function AuthProvider({ children }) {
     bio,
     avatar,
     location,
+    UserId,
   };
 
   return (

@@ -8,9 +8,9 @@ import app from './firebase';
 function BookCard(props) {
   const [username, setUsername] = useState('');
   const [avatar, setAvatar] = useState();
-  const {
-    publisherId, id, bookName, bookAuthor, description, alt, src,
-  } = props;
+  const { publisherId, id, bookName, bookAuthor, description, alt, src } =
+    props;
+  const UserId = publisherId;
   useEffect(() => {
     let active = true;
     app
@@ -30,13 +30,13 @@ function BookCard(props) {
   });
 
   return (
-    <Link
-      style={{ textDecoration: 'none', color: 'black' }}
-      to={{
-        pathname: `/Details/${id}`,
-      }}
-    >
-      <div className={postStyle.Bookcard} key={id}>
+    <div className={postStyle.Bookcard} key={id}>
+      <Link
+        style={{ textDecoration: 'none', color: 'black' }}
+        to={{
+          pathname: `/Details/${id}`,
+        }}
+      >
         <div className={postStyle.BookImage}>
           <img alt={`${alt} book`} src={src} />
         </div>
@@ -44,23 +44,27 @@ function BookCard(props) {
           <h3 className={postStyle.BookTitle}>{bookName}</h3>
           <h5 className={postStyle.BookAuthor}>{bookAuthor}</h5>
           <p className={postStyle.BookDescription}>{description}</p>
-          <div className={postStyle.userLabel}>
-            <img
-              style={{ display: 'inline' }}
-              alt={username}
-              src={avatar}
-              className={postStyle.publisherImg}
-            />
-            <h3
-              className={postStyle.publisherName}
-              style={{ display: 'inline' }}
-            >
-              {username}
-            </h3>
-          </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+      <Link
+        style={{ textDecoration: 'none', color: 'black' }}
+        to={{
+          pathname: `/UserProfile/${UserId}`,
+        }}
+      >
+        <div className={postStyle.userLabel}>
+          <img
+            style={{ display: 'inline' }}
+            alt={username}
+            src={avatar}
+            className={postStyle.publisherImg}
+          />
+          <h3 className={postStyle.publisherName} style={{ display: 'inline' }}>
+            {username}
+          </h3>
+        </div>
+      </Link>
+    </div>
   );
 }
 export default BookCard;

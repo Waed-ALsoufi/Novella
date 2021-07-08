@@ -43,9 +43,9 @@ function AddBookPage() {
   });
 
   const [Adress, setAdress] = useState();
-  const date = `${new Date().getFullYear()
-    }-${new Date().getMonth() + 1
-    }-${new Date().getDate()}`;
+  const date = `${new Date().getFullYear()}-${
+    new Date().getMonth() + 1
+  }-${new Date().getDate()}`;
 
   async function addNewPost() {
     if (state.bookName !== '') {
@@ -90,7 +90,7 @@ function AddBookPage() {
   }
 
   const [background, setBackground] = useState(
-    'https://static.thenounproject.com/png/558475-200.png',
+    'https://static.thenounproject.com/png/558475-200.png'
   );
 
   const handleImg = (e) => {
@@ -99,7 +99,7 @@ function AddBookPage() {
         alt: e.target.files[0].name,
       });
       setBackground(
-        'http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif',
+        'http://www.downgraf.com/wp-content/uploads/2014/09/01-progress.gif'
       );
     }
 
@@ -107,12 +107,14 @@ function AddBookPage() {
     uploadTask
       .child(`/books/${e.target.files[0].name}`)
       .put(e.target.files[0])
-      .then((snapshot) => snapshot.ref.getDownloadURL().then((downloadURL) => {
-        if (downloadURL) {
-          setImage({ PhotoUrl: downloadURL });
-          setBackground(downloadURL);
-        }
-      }));
+      .then((snapshot) =>
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
+          if (downloadURL) {
+            setImage({ PhotoUrl: downloadURL });
+            setBackground(downloadURL);
+          }
+        })
+      );
   };
 
   const handleInputChange = (event) => {
@@ -129,7 +131,7 @@ function AddBookPage() {
     let active = true;
     const GetAdress = async () => {
       const response = await fetch(
-        `https://us1.locationiq.com/v1/reverse.php?key=pk.60c4eff43cb5d5b1a97a7b542ff728ae&lat=${marker.latitude}&lon=${marker.longitude}&format=json`,
+        `https://us1.locationiq.com/v1/reverse.php?key=pk.60c4eff43cb5d5b1a97a7b542ff728ae&lat=${marker.latitude}&lon=${marker.longitude}&format=json`
       );
       const newData = await response.json();
       const add = newData.display_name.split(', ');
@@ -167,42 +169,42 @@ function AddBookPage() {
             }}
           >
             <input
-              type="file"
-              name="file"
-              id="file"
-              accept=".png, .jpg, .jpeg"
+              type='file'
+              name='file'
+              id='file'
+              accept='.png, .jpg, .jpeg'
               onChange={handleImg}
               className={publishStyle.inputfile}
             />
 
-            <label htmlFor="file" />
+            <label htmlFor='file' />
           </div>
           <div className={publishStyle.subtitle}>Title </div>
 
           <input
-            name="bookName"
-            type="text"
+            name='bookName'
+            type='text'
             className={publishStyle.field}
-            placeholder="Book Title"
+            placeholder='Book Title'
             onChange={handleInputChange}
           />
           <div className={publishStyle.subtitle}>Author </div>
           <input
-            name="bookAuthor"
-            type="text"
+            name='bookAuthor'
+            type='text'
             className={publishStyle.field}
-            placeholder="Book Author"
+            placeholder='Book Author'
             onChange={handleInputChange}
           />
           <div className={publishStyle.subtitle}>Description </div>
 
           <textarea
-            rows="4"
-            cols="50"
-            name="description"
-            type="text"
+            rows='4'
+            cols='50'
+            name='description'
+            type='text'
             className={publishStyle.fieldDescription}
-            placeholder="Please give description about the book (e.g condition, your personal opinion about the book)"
+            placeholder='Please give description about the book (e.g condition, your personal opinion about the book)'
             onChange={handleInputChange}
           />
         </div>
@@ -210,27 +212,27 @@ function AddBookPage() {
           <div>
             <div className={publishStyle.subtitle}>Type </div>
             <input
-              name="bookType"
-              type="text"
+              name='bookType'
+              type='text'
               className={publishStyle.field}
-              placeholder="Book Type"
+              placeholder='Book Type'
               onChange={handleInputChange}
             />
             <div className={publishStyle.subtitle}>Pickup Location </div>
 
             <input
-              name="bookLocation"
-              type="text"
+              name='bookLocation'
+              type='text'
               className={publishStyle.field2}
-              placeholder="Location"
+              placeholder='Location'
               value={Adress || ''}
               onChange={updateAdress}
             />
 
             <ReactMapGL
               {...viewport}
-              mapboxApiAccessToken="pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw"
-              mapStyle="mapbox://styles/mapbox/streets-v11"
+              mapboxApiAccessToken='pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw'
+              mapStyle='mapbox://styles/mapbox/streets-v11'
               onViewportChange={() => {
                 setViewport(viewport);
               }}
@@ -243,8 +245,7 @@ function AddBookPage() {
                 draggable
                 onDragEnd={onMarkerDragEnd}
               >
-                <Pin size={20} />
-                {' '}
+                <Pin size={20} />{' '}
               </Marker>
             </ReactMapGL>
           </div>

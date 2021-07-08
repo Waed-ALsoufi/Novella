@@ -9,7 +9,7 @@ function Dropdown() {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
-  const { logOut } = useAuth();
+  const { logOut, UserId } = useAuth();
 
   return (
     <>
@@ -19,15 +19,15 @@ function Dropdown() {
       >
         <li>
           <Link
-            className="dropdown-link"
-            to="/Profile"
+            className='dropdown-link'
+            to={`/UserProfile/${UserId}`}
             onClick={() => setClick(false)}
           >
             Profile
           </Link>
         </li>
         <li>
-          <Link className="dropdown-link" to="/Logout" onClick={logOut}>
+          <Link className='dropdown-link' to='/Logout' onClick={logOut}>
             log out
           </Link>
         </li>

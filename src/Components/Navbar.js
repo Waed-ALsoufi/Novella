@@ -9,7 +9,7 @@ function Navbar() {
   const [dropdown, setDropdown] = useState(false);
 
   const closeMobileMenu = () => setClick(false);
-  const { currentUser, avatar } = useAuth();
+  const { currentUser, avatar, UserId } = useAuth();
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -29,35 +29,39 @@ function Navbar() {
 
   return currentUser ? (
     <>
-      <nav className="navbar">
-        <Link to="/Home" className="navbar-logo">
+      <nav className='navbar'>
+        <Link to='/Home' className='navbar-logo'>
           Novella
         </Link>
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li className="nav-item">
-            <Link to="/Home" className="nav-links">
+          <li className='nav-item'>
+            <Link to='/Home' className='nav-links'>
               Home
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/Posts" className="nav-links">
+          <li className='nav-item'>
+            <Link to='/Posts' className='nav-links'>
               Posts
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/Publish" className="nav-links">
+          <li className='nav-item'>
+            <Link to='/Publish' className='nav-links'>
               Publish
             </Link>
           </li>
           <li
-            className="nav-item"
+            className='nav-item'
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            <Link to="/profile" className="nav-links" onClick={closeMobileMenu}>
-              <i className="fas fa-caret-down" />
-              <img src={avatar} className="userPicNav" alt="profile" />
-              <span className="dropDownCaret" />
+            <Link
+              to={`/UserProfile/${UserId}`}
+              className='nav-links'
+              onClick={closeMobileMenu}
+            >
+              <i className='fas fa-caret-down' />
+              <img src={avatar} className='userPicNav' alt='profile' />
+              <span className='dropDownCaret' />
             </Link>
             {dropdown ? <Dropdown /> : null}
           </li>

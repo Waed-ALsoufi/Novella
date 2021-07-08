@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 .BooksPage {
   min-height: 100vh;
   background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
@@ -23,7 +23,7 @@
   outline: none;
   transition: 0.3s;
 }
-.SearchInput:focus{
+.SearchInput:focus {
   outline: none;
 }
 .BooksList {
@@ -41,7 +41,6 @@
   width: 250px;
   height: 320px;
   margin-left: 20px;
-
   margin-bottom: 20px;
   border-radius: 0.6em;
   box-shadow: 0 13px 27px -5px hsla(240, 30.1%, 28%, 0.25),
