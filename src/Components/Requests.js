@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Requests({ post }) {
+function Requests({ post, postIndex }) {
   const classes = useStyles();
 
   const [bookImage, setBookImage] = useState();

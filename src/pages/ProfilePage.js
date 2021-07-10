@@ -306,12 +306,12 @@ export default function ProfilePage(props) {
         </TabPanel>
         <TabPanel value={value} index={2}>
           {requests ? (
-            requests.map((post) => (
+            requests.map((post, index) => (
               <Link
                 to={`/Details/${post.bookId}`}
                 style={{ textDecoration: "none " }}
               >
-                <Requests post={post} />
+                <Requests post={post} postIndex={index} />
               </Link>
             ))
           ) : (
