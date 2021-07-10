@@ -46,6 +46,7 @@ function BookCard(props) {
           <p className={postStyle.BookDescription}>{description}</p>
         </div>
       </Link>
+      <hr style={{ borderTop: '1px solid #d299c2' }} />
       <Link
         style={{ textDecoration: 'none', color: 'black' }}
         to={{

@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import loginStyle from '../Style/Login.module.css';
 import bg from '../Images/logBg.png';
-
-import { useAuth } from './Auth';
+import { useAuth } from '../Components/Auth';
 
 function LogIn() {
   const [email, setEmail] = useState('');
@@ -28,39 +27,40 @@ function LogIn() {
     <div>
       <div className={loginStyle.contact_box}>
         <div className={loginStyle.rightLogin}>
-          <h2 className={loginStyle.webName}>Novella</h2>
-          <h2 className={loginStyle.Title}>Welcome to Novella</h2>
+          <span className={loginStyle.webName}>Novella</span>
+          <h2 className={loginStyle.Title}>Welcome Back!</h2>
           <input
-            type="text"
+            type='text'
             className={loginStyle.field}
-            placeholder="Email"
+            placeholder='Email'
             onChange={updateEmail}
           />
           <input
-            type="password"
+            type='password'
             className={loginStyle.field}
-            placeholder="Password"
-            id="secondInput"
+            placeholder='Password'
+            id='secondInput'
             onChange={updatePassword}
           />
 
-          <button className={loginStyle.btn} type="button" onClick={submitting}>
+          <button className={loginStyle.btn} type='button' onClick={submitting}>
             Log In
           </button>
-          <h3 className={loginStyle.Title}>
-            Don't have an account?
-            {' '}
-            <Link to="/SignUp" className={loginStyle.link}>
+          <h3 className={loginStyle.Title2}>
+            Don't have an account?{' '}
+            <Link to='/SignUp' className={loginStyle.link}>
               Sign Up
             </Link>
           </h3>
         </div>
         <div className={loginStyle.left}>
-          <img src={bg} alt="" />
-          <h1 id="welcome" className="text">
-            “A reader lives a thousand lives before he dies.”
-            {' '}
+          <img src={bg} alt='' />
+          <h1 id='welcome' className='text'>
+            “A reader lives a thousand lives before he dies.”{' '}
           </h1>
+          <h5 id='welcome' className='text'>
+            -George R.R. Martin
+          </h5>
         </div>
       </div>
     </div>

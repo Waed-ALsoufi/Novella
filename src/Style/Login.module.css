@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Boogaloo&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,100&display=swap');
 .contact_box {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -17,33 +17,49 @@
   margin-bottom: 10px;
   font-size: 25px;
   color: #440a67;
-  font-family: "Indie Flower", cursive;
+  font-family: 'Playfair Display', serif;
+}
+
+.left h5 {
+  font-size: 15px;
+  color: #4a4a4a;
+  font-family: 'Playfair Display', serif;
 }
 .left img {
   max-width: 100%;
   max-height: 70vh;
 }
 .rightLogin {
-  padding-top: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.rightSignup {
+  margin-top: 40px;
 }
 
 .onlyOne {
   display: block;
 }
 .Title,
-.webName {
-  padding: 20px 0 10px;
+.webName,
+.Title2 {
+  padding: 20px 10px;
   margin-bottom: 10px;
   color: #440a67;
   align-items: left;
 }
 .webName {
-  font-family: "Indie Flower", cursive;
   padding: 30px 0 10px;
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
 }
-input:focus {
-  outline: 1px solid #440a67;
+.Title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
 }
+
 .field,
 .field2 {
   width: 60%;
@@ -54,8 +70,8 @@ input:focus {
   font-size: 1.1rem;
   margin-bottom: 22px;
   transition: 0.3s;
-  font-family: "Courier Prime", monospace;
   border-radius: 10px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .field2 {
@@ -67,7 +83,9 @@ input:focus {
   padding: 0.5rem 1rem;
   background-color: #440a67;
   color: #fff;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
   border: none;
   outline: none;
   cursor: pointer;
@@ -76,10 +94,19 @@ input:focus {
 }
 
 .btn:hover {
-  background-color: #54147c;
+  background-color: #5e2c7c;
 }
 
 .link {
-  color: #93329e;
+  color: #440a67;
   text-decoration: none;
+  font-size: 20px;
+}
+.link:hover {
+  color: #5e2c7c;
+  text-decoration: none;
+}
+.Title2 {
+  color: #4a4a4a;
+  font-size: 17px;
 }
