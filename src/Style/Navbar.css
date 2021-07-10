@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Tinos&display=swap");
 
 .navbar {
   background-color: #a39ce0;
@@ -21,7 +21,8 @@
   cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
-  font-family: 'Tinos', serif;}
+  font-family: "Tinos", serif;
+}
 
 .fa-firstdraft {
   margin-left: 0.5rem;
@@ -67,9 +68,10 @@
 
 .userPicNav {
   width: 30px;
+  height: 30px;
   margin: 0;
   border-radius: 20px;
-  object-fit: fill;
+  object-fit: cover;
 }
 
 .dropDownCaret {

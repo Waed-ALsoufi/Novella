@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import app, { auth } from './firebase';
+import React, { useContext, useState, useEffect } from "react";
+import app, { auth } from "./firebase";
 
 const AuthContext = React.createContext();
 
@@ -10,12 +10,12 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [country, setCountry] = useState('');
-  const [bio, setBio] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [country, setCountry] = useState("");
+  const [bio, setBio] = useState("");
   const [avatar, setAvatar] = useState();
-  const [UserId, setUserId] = useState('');
+  const [UserId, setUserId] = useState("");
   const [location, setLocation] = useState({
     longitude: 34.25,
     latitude: 32.0,
@@ -61,10 +61,9 @@ export function AuthProvider({ children }) {
   if (currentUser) {
     app
       .firestore()
-      .collection('users')
+      .collection("users")
       .doc(currentUser.uid)
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         setEmail(currentUser.email);
         setBio(doc.data().bio);
         setUsername(`${doc.data().firstName} ${doc.data().lastName}`);

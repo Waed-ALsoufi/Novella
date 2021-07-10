@@ -1,21 +1,23 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/destructuring-assignment */
-import React, { useState, useEffect } from 'react';
-import app from './firebase';
-import '../Style/EditeProfile.css';
-import { useAuth } from './Auth';
+import React, { useState, useEffect } from "react";
+import app from "./firebase";
+import "../Style/EditeProfile.css";
+import { useAuth } from "./Auth";
 
 function EditeProfile(props) {
-  const {
-    currentUser, username, country, bio, avatar,
-  } = useAuth();
+  const { currentUser, username, country, bio, avatar } = useAuth();
 
   const [newImage, setNewImage] = useState();
   const [displayedImage, setDisplayedImage] = useState();
   const [uploadedImage, setUploadedImage] = useState();
 
-  const [firstName, setFirstName] = useState(username.substr(0, username.indexOf(' ')));
-  const [lastName, setLastName] = useState(username.substr(username.indexOf(' ') + 1));
+  const [firstName, setFirstName] = useState(
+    username.substr(0, username.indexOf(" "))
+  );
+  const [lastName, setLastName] = useState(
+    username.substr(username.indexOf(" ") + 1)
+  );
   const [UserBio, setUserBio] = useState(bio);
   const [UserCountry, setUserCountry] = useState(country);
   const [newPassword, setNewPassword] = useState(null);
@@ -35,10 +37,10 @@ function EditeProfile(props) {
   const uploadData = (changeImage) => {
     app
       .firestore()
-      .collection('users')
+      .collection("users")
       .doc(currentUser.uid)
-      .set({
-        bio,
+      .update({
+        bio: UserBio,
         firstName,
         lastName,
         country,
@@ -47,7 +49,7 @@ function EditeProfile(props) {
       .then(() => props.history.goBack());
     if (newPassword != null) {
       if (newPassword === confirmPassword) {
-        currentUser.updatePassword(newPassword).then(() => console.log('done'));
+        currentUser.updatePassword(newPassword).then(() => console.log("done"));
       }
     }
   };
@@ -57,25 +59,28 @@ function EditeProfile(props) {
     uploadTask
       .child(`/users/${currentUser.uid}`)
       .put(uploadedImage)
-      .then((snapshot) => snapshot.ref.getDownloadURL().then((downloadURL) => {
-        if (downloadURL) {
-          const changeImage = downloadURL;
-          uploadData(changeImage);
-        }
-      }));
+      .then((snapshot) =>
+        snapshot.ref.getDownloadURL().then((downloadURL) => {
+          if (downloadURL) {
+            const changeImage = downloadURL;
+            uploadData(changeImage);
+          }
+        })
+      );
   };
   const cancel = () => props.history.goBack();
 
   const save = () => {
+    console.log(bio);
     if (firstName.length < 3 || lastName.length < 3) {
-      alert('The Name must be complete');
+      alert("The Name must be complete");
     } else if (country.length < 3) {
       alert("You can't delete the country");
     } else if (newPassword !== null) {
       if (newPassword.length < 8) {
-        alert('password must contain at least 8 characters');
+        alert("password must contain at least 8 characters");
       } else if (newPassword !== confirmPassword) {
-        alert('passwords must be identical');
+        alert("passwords must be identical");
       } else if (displayedImage) {
         uploadImage();
       } else {
@@ -100,95 +105,92 @@ function EditeProfile(props) {
 
   return (
     <div className="editProfile">
-      <h1 className="edittingTitle">Edit Your Profile</h1>
-      <img
-        alt="profile"
-        src={displayedImage || avatar}
-        className="editeImage"
-      />
-      <br />
-      <input
-        type="file"
-        accept=".png, .jpg, .jpeg"
-        onChange={updateImage}
-        className="setImage"
-      />
-      <div className="putAside">
-        <div className="leftStuff">
-          <div className="inputItem">
-            <h3 className="edittingTitle">First Name:</h3>
-            <input
-              type="text"
-              placeholder="Change Name"
-              className="edittingBox"
-              value={firstName}
-              onChange={updateFirstName}
+      <div className="editContainer">
+        <div className="putAside">
+          <div>
+            <img
+              alt="profile"
+              src={displayedImage || avatar}
+              className="editeImage"
             />
+            <br />
+            <input
+              type="file"
+              accept=".png, .jpg, .jpeg"
+              onChange={updateImage}
+              className="setImage"
+            />
+            <div className="edittingBtns">
+              <button onClick={save} type="button" className="btns saveBtn">
+                Save
+              </button>
+              <button onClick={cancel} type="button" className="btns cancelBtn">
+                Cancel
+              </button>
+            </div>
+          </div>
+          <div className="inputs">
+            <div className="inputItem">
+              <h3 className="edittingTitle">First Name:</h3>
+              <input
+                type="text"
+                placeholder="Change Name"
+                className="edittingBox"
+                value={firstName}
+                onChange={updateFirstName}
+              />
+            </div>
+            <div className="inputItem">
+              <h3 className="edittingTitle">Change Password:</h3>{" "}
+              <input
+                type="password"
+                placeholder="New Password"
+                className="edittingBox"
+                onChange={updateNewPassword}
+              />
+            </div>
+            <div className="inputItem">
+              <h3 className="edittingTitle">Last Name:</h3>
+              <input
+                type="text"
+                placeholder="Change Name"
+                className="edittingBox"
+                value={lastName}
+                onChange={updateLastName}
+              />
+            </div>
+            <div className="inputItem">
+              <h3 className="edittingTitle">Confirm Password:</h3>{" "}
+              <input
+                type="password"
+                placeholder="Confirm New Password"
+                className="edittingBox"
+                onChange={updateConfirmPassword}
+              />
+            </div>
+            <div className="inputItem">
+              <h3 className="edittingTitle">Change Bio:</h3>
+              <input
+                type="text"
+                placeholder="Change Bio"
+                className="edittingBox lowBox"
+                value={UserBio}
+                onChange={updateBio}
+              />
+            </div>
+            <div className="inputItem">
+              <h3 className="edittingTitle">Country:</h3>
+              <input
+                type="text"
+                placeholder="Change Name"
+                className="edittingBox lowBox"
+                value={UserCountry}
+                onChange={updateCountry}
+              />
+            </div>
           </div>
         </div>
-        <div>
-          <div className="inputItem">
-            <h3 className="edittingTitle">Last Name:</h3>
-            <input
-              type="text"
-              placeholder="Change Name"
-              className="edittingBox"
-              value={lastName}
-              onChange={updateLastName}
-            />
-          </div>
-        </div>
       </div>
-      <div className="inputItem">
-        <h3 className="edittingTitle">Change Bio:</h3>
-        <input
-          type="text"
-          placeholder="Change Bio"
-          className="edittingBox"
-          value={UserBio}
-          onChange={updateBio}
-        />
-      </div>
-      <div className="inputItem">
-        <h3 className="edittingTitle">Country:</h3>
-        <input
-          type="text"
-          placeholder="Change Name"
-          className="edittingBox"
-          value={UserCountry}
-          onChange={updateCountry}
-        />
-      </div>
-
-      <div className="putAside">
-        <div className="inputItem">
-          <h3 className="edittingTitle">Change Password:</h3>
-          {' '}
-          <input
-            type="password"
-            placeholder="New Password"
-            className="edittingBox"
-            onChange={updateNewPassword}
-          />
-        </div>
-
-        <div className="inputItem">
-          <h3 className="edittingTitle">Confirm Password:</h3>
-          {' '}
-          <input
-            type="password"
-            placeholder="Confirm New Password"
-            className="edittingBox"
-            onChange={updateConfirmPassword}
-          />
-        </div>
-      </div>
-      <button onClick={cancel} type="button" className="btns cancelBtn">
-        Cancel
-      </button>
-      <button onClick={save} type="button" className="btns saveBtn">
-        Save
-      </button>
     </div>
   );
 }
