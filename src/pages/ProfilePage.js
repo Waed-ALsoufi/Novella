@@ -25,6 +25,8 @@ import PersonPinIcon from "@material-ui/icons/PersonPin";
 import AddIcon from "@material-ui/icons/Add";
 import { useAuth } from "../Components/Auth";
 import { Link } from "react-router-dom";
+import Regesters from "../Components/Regesters";
+import Requests from "../Components/Requests";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -135,6 +137,10 @@ export default function ProfilePage(props) {
   const [value, setValue] = useState(0);
   const [userPosts, setUserPosts] = useState([]);
   const [wishList, setWishList] = useState([]);
+
+  const [regesters, setRegesters] = useState([]);
+  const [requests, setRequests] = useState([]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -166,6 +172,8 @@ export default function ProfilePage(props) {
         setBio(doc.data().bio);
         setWishList(doc.data().wishList);
         setisLoading(false);
+        setRegesters(doc.data().sentExchanges);
+        setRequests(doc.data().unapprovedExchanges);
       });
   }, [UserId]);
 
@@ -248,7 +256,7 @@ export default function ProfilePage(props) {
                     className={value === 1 ? classes.active : null}
                   />
                 }
-                label="FAVORITES"
+                label="Regesters"
                 {...a11yProps(1)}
               />
               <Tab
@@ -258,7 +266,7 @@ export default function ProfilePage(props) {
                     className={value === 2 ? classes.active : null}
                   />
                 }
-                label="FAVORITES"
+                label="Requests"
                 {...a11yProps(2)}
               />
               <Tab
@@ -352,10 +360,40 @@ export default function ProfilePage(props) {
             )}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
+            {regesters ? (
+              regesters.map((post) => (
+                <Link
+                  to={`/Details/${post.bookId}`}
+                  style={{ textDecoration: "none " }}
+                >
+                  <Regesters post={post} />
+                </Link>
+              ))
+            ) : (
+              <Grid justifyContent="center" alignItems="center">
+                <Typography variant="body1">
+                  Here you can see the posts that you regestered!
+                </Typography>
+              </Grid>
+            )}{" "}
           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
+            {requests ? (
+              requests.map((post) => (
+                <Link
+                  to={`/Details/${post.bookId}`}
+                  style={{ textDecoration: "none " }}
+                >
+                  <Requests post={post} />
+                </Link>
+              ))
+            ) : (
+              <Grid justifyContent="center" alignItems="center">
+                <Typography variant="body1">
+                  Here you can see the posts that people request from you!
+                </Typography>
+              </Grid>
+            )}{" "}
           </TabPanel>
           <TabPanel value={value} index={3}>
             <div className={classes.Wishlist}>
