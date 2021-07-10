@@ -1,22 +1,24 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import loginStyle from "../Style/Login.module.css";
-import bg from "../Images/logBg.png";
-import { useHistory } from "react-router-dom";
-import { useAuth } from "./Auth";
+/* eslint-disable no-alert */
+/* eslint-disable react/no-unescaped-entities */
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import loginStyle from '../Style/Login.module.css';
+import bg from '../Images/logBg.png';
 
-function LogIn(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import { useAuth } from './Auth';
+
+function LogIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const updateEmail = (e) => setEmail(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
-  let history = useHistory();
-  const { login } = useAuth();
+  const history = useHistory();
+  const { logIn } = useAuth();
 
   async function submitting() {
     try {
-      await login(email, password);
-      history.push("/");
+      await logIn(email, password);
+      history.push('/');
     } catch (error) {
       alert(error.message);
     }
@@ -26,27 +28,28 @@ function LogIn(props) {
     <div>
       <div className={loginStyle.contact_box}>
         <div className={loginStyle.rightLogin}>
-          <h2 className={loginStyle.webName}>WebName</h2>
-          <h2 className={loginStyle.Title}>Welcome to WebName</h2>
+          <h2 className={loginStyle.webName}>Novella</h2>
+          <h2 className={loginStyle.Title}>Welcome to Novella</h2>
           <input
             type="text"
             className={loginStyle.field}
             placeholder="Email"
             onChange={updateEmail}
-          ></input>
+          />
           <input
             type="password"
             className={loginStyle.field}
             placeholder="Password"
             id="secondInput"
             onChange={updatePassword}
-          ></input>
+          />
 
-          <button className={loginStyle.btn} onClick={submitting}>
+          <button className={loginStyle.btn} type="button" onClick={submitting}>
             Log In
           </button>
           <h3 className={loginStyle.Title}>
-            Don't have an account?{" "}
+            Don't have an account?
+            {' '}
             <Link to="/SignUp" className={loginStyle.link}>
               Sign Up
             </Link>
@@ -55,7 +58,8 @@ function LogIn(props) {
         <div className={loginStyle.left}>
           <img src={bg} alt="" />
           <h1 id="welcome" className="text">
-            “A reader lives a thousand lives before he dies.”{" "}
+            “A reader lives a thousand lives before he dies.”
+            {' '}
           </h1>
         </div>
       </div>

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Tinos&display=swap');
+
 .navbar {
   background-color: #a39ce0;
   height: 70px;
@@ -19,7 +21,7 @@
   cursor: pointer;
   text-decoration: none;
   font-size: 2rem;
-}
+  font-family: 'Tinos', serif;}
 
 .fa-firstdraft {
   margin-left: 0.5rem;

@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from "react";
-import fire from "./firebase";
-import app from "./firebase";
-import "../Style/EditeProfile.css";
+/* eslint-disable no-alert */
+/* eslint-disable react/destructuring-assignment */
+import React, { useState, useEffect } from 'react';
+import app from './firebase';
+import '../Style/EditeProfile.css';
+import { useAuth } from './Auth';
 
 function EditeProfile(props) {
-  const user = props.location.params.user;
-  const name = props.location.params.name;
+  const {
+    currentUser, username, country, bio, avatar,
+  } = useAuth();
 
-  const [image, setImage] = useState(props.location.params.image);
   const [newImage, setNewImage] = useState();
   const [displayedImage, setDisplayedImage] = useState();
   const [uploadedImage, setUploadedImage] = useState();
 
-  const [firstName, setFirstName] = useState(name.substr(0, name.indexOf(" ")));
-  const [lastName, setLastName] = useState(name.substr(name.indexOf(" ") + 1));
-  const [bio, setBio] = useState(props.location.params.bio);
-  const [country, setCountry] = useState(props.location.params.country);
+  const [firstName, setFirstName] = useState(username.substr(0, username.indexOf(' ')));
+  const [lastName, setLastName] = useState(username.substr(username.indexOf(' ') + 1));
+  const [UserBio, setUserBio] = useState(bio);
+  const [UserCountry, setUserCountry] = useState(country);
   const [newPassword, setNewPassword] = useState(null);
   const [confirmPassword, setConfrirmPassword] = useState();
 
-
   const updateFirstName = (e) => setFirstName(e.target.value);
   const updateLastName = (e) => setLastName(e.target.value);
-  const updateBio = (e) => setBio(e.target.value);
-  const updateCountry = (e) => setCountry(e.target.value);
+  const updateBio = (e) => setUserBio(e.target.value);
+  const updateCountry = (e) => setUserCountry(e.target.value);
   const updateNewPassword = (e) => setNewPassword(e.target.value);
   const updateConfirmPassword = (e) => setConfrirmPassword(e.target.value);
   const updateImage = (e) => {
@@ -31,72 +32,59 @@ function EditeProfile(props) {
     setUploadedImage(e.target.files[0]);
   };
 
-
   const uploadData = (changeImage) => {
     app
       .firestore()
-      .collection("users")
-      .doc(user.uid)
+      .collection('users')
+      .doc(currentUser.uid)
       .set({
-        bio: bio,
-        firstName: firstName,
-        lastName: lastName,
-        country: country,
+        bio,
+        firstName,
+        lastName,
+        country,
         image: changeImage,
       })
       .then(() => props.history.goBack());
     if (newPassword != null) {
-      if (newPassword == confirmPassword) {
-        user.updatePassword(newPassword).then(() => console.log("done"));
+      if (newPassword === confirmPassword) {
+        currentUser.updatePassword(newPassword).then(() => console.log('done'));
       }
     }
   };
 
   const uploadImage = () => {
-    const uploadTask = fire.storage().ref();
+    const uploadTask = app.storage().ref();
     uploadTask
-      .child(`/users/${user.uid}`)
+      .child(`/users/${currentUser.uid}`)
       .put(uploadedImage)
-      .then((snapshot) =>
-        snapshot.ref.getDownloadURL().then((downloadURL) => {
-          if (downloadURL) {
-            const changeImage = downloadURL;
-            uploadData(changeImage);
-          }
-        })
-      );
+      .then((snapshot) => snapshot.ref.getDownloadURL().then((downloadURL) => {
+        if (downloadURL) {
+          const changeImage = downloadURL;
+          uploadData(changeImage);
+        }
+      }));
   };
   const cancel = () => props.history.goBack();
 
   const save = () => {
     if (firstName.length < 3 || lastName.length < 3) {
-      alert("The Name must be complete");
-    } else {
-      if (country.length < 3) {
-        alert("You can't delete the country");
+      alert('The Name must be complete');
+    } else if (country.length < 3) {
+      alert("You can't delete the country");
+    } else if (newPassword !== null) {
+      if (newPassword.length < 8) {
+        alert('password must contain at least 8 characters');
+      } else if (newPassword !== confirmPassword) {
+        alert('passwords must be identical');
+      } else if (displayedImage) {
+        uploadImage();
       } else {
-        if (newPassword !== null) {
-          if (newPassword.length < 8) {
-            alert("password must contain at least 8 characters");
-          } else {
-            if (newPassword !== confirmPassword) {
-              alert("passwords must be identical");
-            } else {
-              if (displayedImage) {
-                uploadImage();
-              } else {
-                uploadData(image);
-              }
-            }
-          }
-        } else {
-          if (displayedImage) {
-            uploadImage();
-          } else {
-            uploadData(image);
-          }
-        }
+        uploadData(avatar);
       }
+    } else if (displayedImage) {
+      uploadImage();
+    } else {
+      uploadData(avatar);
     }
   };
 
@@ -115,7 +103,7 @@ function EditeProfile(props) {
       <h1 className="edittingTitle">Edit Your Profile</h1>
       <img
         alt="profile"
-        src={displayedImage ? displayedImage : image}
+        src={displayedImage || avatar}
         className="editeImage"
       />
       <br />
@@ -124,7 +112,7 @@ function EditeProfile(props) {
         accept=".png, .jpg, .jpeg"
         onChange={updateImage}
         className="setImage"
-      ></input>
+      />
       <div className="putAside">
         <div className="leftStuff">
           <div className="inputItem">
@@ -135,7 +123,7 @@ function EditeProfile(props) {
               className="edittingBox"
               value={firstName}
               onChange={updateFirstName}
-            ></input>
+            />
           </div>
         </div>
         <div>
@@ -147,7 +135,7 @@ function EditeProfile(props) {
               className="edittingBox"
               value={lastName}
               onChange={updateLastName}
-            ></input>
+            />
           </div>
         </div>
       </div>
@@ -157,9 +145,9 @@ function EditeProfile(props) {
           type="text"
           placeholder="Change Bio"
           className="edittingBox"
-          value={bio}
+          value={UserBio}
           onChange={updateBio}
-        ></input>
+        />
       </div>
       <div className="inputItem">
         <h3 className="edittingTitle">Country:</h3>
@@ -167,36 +155,38 @@ function EditeProfile(props) {
           type="text"
           placeholder="Change Name"
           className="edittingBox"
-          value={country}
+          value={UserCountry}
           onChange={updateCountry}
-        ></input>
+        />
       </div>
 
       <div className="putAside">
         <div className="inputItem">
-          <h3 className="edittingTitle">Change Password:</h3>{" "}
+          <h3 className="edittingTitle">Change Password:</h3>
+          {' '}
           <input
             type="password"
             placeholder="New Password"
             className="edittingBox"
             onChange={updateNewPassword}
-          ></input>
+          />
         </div>
 
         <div className="inputItem">
-          <h3 className="edittingTitle">Confirm Password:</h3>{" "}
+          <h3 className="edittingTitle">Confirm Password:</h3>
+          {' '}
           <input
             type="password"
             placeholder="Confirm New Password"
             className="edittingBox"
             onChange={updateConfirmPassword}
-          ></input>
+          />
         </div>
       </div>
-      <button onClick={cancel} className="btns cancelBtn">
+      <button onClick={cancel} type="button" className="btns cancelBtn">
         Cancel
       </button>
-      <button onClick={save} className="btns saveBtn">
+      <button onClick={save} type="button" className="btns saveBtn">
         Save
       </button>
     </div>
