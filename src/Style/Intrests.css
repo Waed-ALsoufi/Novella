@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "montserrat", sans-serif;
+  }
+.tellUs {
+position: absolute;
+width: 500px;
+left: 400px;
+top: 35px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 37px;
+line-height: 82px;
+text-align: center;
+
+color: #000000;
+
+background: rgba(147, 50, 158, 0.55);
+border-radius: 20px;
+}
+.itrImg{
+
+    width: 261px;
+    height: 196px;
+    top: 288.11px;
+    
+    /* Surface */
+    
+    background: #FFFFFF;
+    border: 3px solid #93329E;
+    box-sizing: border-box;
+    border-radius: 6px;
+    padding: 30px;
+    margin-left: 80px;
+    margin-right: 0 ;
+
+
+  
+}
+.itrImg img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    
+}
+.intrname {
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 30px 1;
+    width: 200px;
+  }
+  /* .inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+  } */
+
+  .row {
+    display: flex;
+    justify-content: center;
+
+  }
+  .col {
+    flex: 33.33%;
+    max-width: 33.33%;
+    /* padding: 16px; */
+    /* justify-content: space-around;
+    flex-wrap: wrap; */
+  }
+  .testimonials {
+  /* padding: 40px 0; */
+  text-align: center;
+  margin-top: 50px;
+}
+.checkbox{
+    margin: 30px 0;
+    top:50px;
+    left: 50px;
+
+}
+.next{
+text-align: center;
+color: #000;
+background-color: rgba(147, 50, 158, 0.55);
+border-radius: 15px;
+
+width: 116px;
+height: 58px;
+left: 1163px;
+top: 620px
+
+}
+  @media screen and (max-width: 960px) {
+    .col {
+      flex: 100%;
+      max-width: 80%;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .col {
+      flex: 100%;
+      max-width: 80%;
+    }
+  }
