@@ -12,6 +12,7 @@ import EditeProfile from '../Components/EditeProfile';
 import PrivateRoute from '../Components/PrivateRoute';
 import ProfilePage from './ProfilePage';
 import WishList from '../Components/WishList';
+import Intrests from '../Components/Intrests';
 function Main() {
   return (
     <Router>
@@ -22,6 +23,7 @@ function Main() {
               <Route path='/Login' component={Login} />
               <Route path='/SignUp' component={SignUp} />
               <Route path='/Logout' component={Login} />
+              <Route path='/Intrests' component={Intrests} />
             </div>
             <div>
               <Navbar />
