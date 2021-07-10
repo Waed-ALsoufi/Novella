@@ -1,9 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
 import Navbar from '../Components/Navbar';
-import Login from '../Components/LogIn';
-import SignUp from '../Components/SignUp';
+import Login from './LogInPage';
+import SignUp from './SignUpPage';
 import { AuthProvider } from '../Components/Auth';
 import Home from '../Components/Home';
 import BooksPage from './BooksPage';
@@ -12,6 +11,7 @@ import BookDetails from './BookDetails';
 import EditeProfile from '../Components/EditeProfile';
 import PrivateRoute from '../Components/PrivateRoute';
 import ProfilePage from './ProfilePage';
+import WishList from '../Components/WishList';
 function Main() {
   return (
     <Router>
@@ -35,6 +35,7 @@ function Main() {
                 path='/UserProfile/:UserId'
                 component={ProfilePage}
               />
+              <PrivateRoute path='/WishList' component={WishList} />
             </div>
           </>
         </Switch>

@@ -134,8 +134,7 @@ function AddBookPage() {
         `https://us1.locationiq.com/v1/reverse.php?key=pk.60c4eff43cb5d5b1a97a7b542ff728ae&lat=${marker.latitude}&lon=${marker.longitude}&format=json`
       );
       const newData = await response.json();
-      const add = newData.display_name.split(', ');
-
+      const add = newData ? newData.display_name.split(', ') : null;
       if (active) {
         setAdress(`${add[0]} ${add[1]}`);
       }
@@ -233,7 +232,7 @@ function AddBookPage() {
               {...viewport}
               mapboxApiAccessToken='pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw'
               mapStyle='mapbox://styles/mapbox/streets-v11'
-              onViewportChange={() => {
+              onViewportChange={(viewport) => {
                 setViewport(viewport);
               }}
             >

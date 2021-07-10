@@ -39,12 +39,13 @@ function BooksPage() {
 
   useEffect(() => {
     function filterByName() {
-      const filteredpost = posts.filter((post) => (
-        post.bookName.toLowerCase().includes(searchBook.toLowerCase())
-        || post.bookLocation.toLowerCase().includes(searchBook.toLowerCase())
-        || post.bookAuthor.toLowerCase().includes(searchBook.toLowerCase())
-        || post.bookType.toLowerCase().includes(searchBook.toLowerCase())
-      ));
+      const filteredpost = posts.filter(
+        (post) =>
+          post.bookName.toLowerCase().includes(searchBook.toLowerCase()) ||
+          post.bookLocation.toLowerCase().includes(searchBook.toLowerCase()) ||
+          post.bookAuthor.toLowerCase().includes(searchBook.toLowerCase()) ||
+          post.bookType.toLowerCase().includes(searchBook.toLowerCase())
+      );
       SetBooks(filteredpost);
     }
     filterByName();
@@ -57,14 +58,14 @@ function BooksPage() {
     <div className={postStyle.BooksPage}>
       <div className={postStyle.SearchForm}>
         <input
-          type="text"
-          placeholder="Search By Book Name"
+          type='text'
+          placeholder='Search By Book Name'
           className={postStyle.SearchInput}
           onChange={(e) => {
             setsearchBook(e.target.value);
           }}
         />
-        <i className="far fa-search" />
+        <i className='far fa-search' />
       </div>
       <div className={postStyle.BooksList}>
         {books.map((post, index) => (

@@ -1,6 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Boogaloo&display=swap");
-@import url("http://fonts.googleapis.com/earlyaccess/droidarabickufi.css");
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
+@import url('http://fonts.googleapis.com/earlyaccess/droidarabickufi.css');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
 * {
   padding: 0;
   margin: 0;
@@ -32,11 +34,13 @@
   margin-bottom: 10px;
   color: #440a67;
   text-align: left;
+  font-family: 'Playfair Display', serif;
 }
 
 .subtitle {
   margin: 16px 16px 4px;
   font-size: 20px;
+  font-family: 'Playfair Display', serif;
 }
 .field,
 .field2,
@@ -44,8 +48,7 @@
   width: 100%;
   outline: none;
   transition: 0.3s;
-  font-family: "Courier Prime", monospace;
-  font-family: "Droid Arabic Kufi", serif;
+  font-family: 'Droid Arabic Kufi', serif;
   border-radius: 10px;
   border: 1px solid #d1d5da;
   height: 40px;
@@ -76,7 +79,7 @@
   background-size: cover;
 }
 .inputfile + label {
-  font-family: "Courier Prime", monospace;
+  font-family: 'Courier Prime', monospace;
   border-radius: 10px;
   padding: 24px;
   text-align: center;

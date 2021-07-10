@@ -21,6 +21,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import GridOnIcon from '@material-ui/icons/GridOn';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
+// import GridOffIcon from '@material-ui/icons/GridOff';
+import AddIcon from '@material-ui/icons/Add';
 import { useAuth } from '../Components/Auth';
 import { Link } from 'react-router-dom';
 function TabPanel(props) {
@@ -57,8 +59,12 @@ function a11yProps(index) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  main: {
+    minHeight: '100vh',
+    backgroundImage: 'linear-gradient(to top, #d299c2 0%, #fef9d7 100%)',
+  },
   root: {
-    marginTop: '90px',
+    paddingTop: '90px',
     padding: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
@@ -78,10 +84,13 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     padding: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     margin: theme.spacing(1),
-    width: '100px',
+    width: '90px',
   },
   taps: {
     width: '70%',
@@ -99,6 +108,19 @@ const useStyles = makeStyles((theme) => ({
   active: {
     color: '#440a67',
   },
+  NoPosts: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '50px',
+    flexDirection: 'column',
+  },
+  Wishlist: {
+    display: 'flex',
+    justifyContent: 'spaceBetween',
+    flexDirection: 'row',
+    alignItems: 'spaceBetween',
+  },
 }));
 
 export default function ProfilePage(props) {
@@ -112,6 +134,7 @@ export default function ProfilePage(props) {
   const [country, setCountry] = useState('');
   const [value, setValue] = useState(0);
   const [userPosts, setUserPosts] = useState([]);
+  const [wishList, setWishList] = useState([]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -141,6 +164,7 @@ export default function ProfilePage(props) {
         setAvatar(doc.data().image);
         setCountry(doc.data().country);
         setBio(doc.data().bio);
+        setWishList(doc.data().wishList);
         setisLoading(false);
       });
   }, [UserId]);
@@ -149,142 +173,251 @@ export default function ProfilePage(props) {
     return <Loading />;
   }
   return (
-    <Grid className={classes.root}>
-      <Paper className={classes.paper}>
-        <Grid container spacing={2} className={classes.card}>
-          <Grid item>
-            <Avatar alt='' src={avatar} className={classes.img} />
-          </Grid>
-          <Grid
-            item
-            container
-            xs={6}
-            direction='column'
-            spacing={2}
-            className={classes.info}
-          >
-            <Typography variant='body2' component={'span'} gutterBottom>
-              {username}
-            </Typography>
-            <Typography
-              variant='body2'
-              component={'span'}
-              color='textSecondary'
+    <div className={classes.main}>
+      <Grid className={classes.root}>
+        <Paper className={classes.paper}>
+          <Grid container spacing={2} className={classes.card}>
+            <Grid item>
+              <Avatar alt='' src={avatar} className={classes.img} />
+            </Grid>
+            <Grid
+              item
+              container
+              xs={6}
+              direction='column'
+              spacing={2}
+              className={classes.info}
             >
-              {bio}
-            </Typography>
+              <Typography variant='body2' component={'span'} gutterBottom>
+                {username}
+              </Typography>
+              <Typography
+                variant='body2'
+                component={'span'}
+                color='textSecondary'
+              >
+                {bio}
+              </Typography>
 
-            <Typography variant='body2' component={'span'}>
-              {country}
-            </Typography>
-            {currentUser.uid === UserId ? (
+              <Typography variant='body2' component={'span'}>
+                {country}
+              </Typography>
+              {currentUser.uid === UserId ? (
+                <Link
+                  style={{ textDecoration: 'none', color: 'black' }}
+                  to={{
+                    pathname: '/EditeProfile',
+                  }}
+                >
+                  <Button
+                    variant='contained'
+                    color='default'
+                    size='small'
+                    className={classes.button}
+                    startIcon={<EditIcon />}
+                  >
+                    Delete
+                  </Button>
+                </Link>
+              ) : null}
+            </Grid>
+          </Grid>
+        </Paper>
+        <Paper square className={classes.taps}>
+          {currentUser.uid === UserId ? (
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant='fullWidth'
+              TabIndicatorProps={{
+                style: { background: '#440a67', height: '4px' },
+              }}
+            >
+              <Tab
+                icon={
+                  <GridOnIcon className={value === 0 ? classes.active : null} />
+                }
+                className={value === 0 ? classes.active : null}
+                label='POSTS'
+                {...a11yProps(0)}
+              />
+              <Tab
+                className={value === 1 ? classes.active : null}
+                icon={
+                  <FavoriteIcon
+                    className={value === 1 ? classes.active : null}
+                  />
+                }
+                label='FAVORITES'
+                {...a11yProps(1)}
+              />
+              <Tab
+                className={value === 2 ? classes.active : null}
+                icon={
+                  <PersonPinIcon
+                    className={value === 2 ? classes.active : null}
+                  />
+                }
+                label='FAVORITES'
+                {...a11yProps(2)}
+              />
+              <Tab
+                className={value === 3 ? classes.active : null}
+                icon={
+                  <FavoriteIcon
+                    className={value === 3 ? classes.active : null}
+                  />
+                }
+                label='Wishlist'
+                {...a11yProps(3)}
+              />
+            </Tabs>
+          ) : null}
+          {currentUser.uid !== UserId ? (
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              TabIndicatorProps={{
+                style: { background: '#440a67', height: '4px' },
+              }}
+            >
+              <Tab
+                icon={<GridOnIcon className={classes.active} />}
+                className={classes.active}
+                label='POSTS'
+                {...a11yProps(0)}
+              />
+            </Tabs>
+          ) : null}
+          <TabPanel value={value} index={0}>
+            {userPosts.length > 0 ? (
+              <Grid container direction='row' spacing={3}>
+                {userPosts.map((post) => (
+                  <Link
+                    style={{ textDecoration: 'none', color: 'black' }}
+                    to={{
+                      pathname: `/Details/${post.id}`,
+                    }}
+                    key={post.id}
+                  >
+                    <Grid key={post.id}>
+                      <Card className={classes.card2}>
+                        <CardMedia className={classes.media} image={post.src} />
+                        <CardContent>
+                          <Typography
+                            variant='subtitle1'
+                            component={'span'}
+                            gutterBottom
+                          >
+                            {post.bookName}
+                          </Typography>
+                          <br />
+                          <Typography
+                            variant='subtitle2'
+                            component={'span'}
+                            color='textSecondary'
+                          >
+                            {post.bookAuthor}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  </Link>
+                ))}
+              </Grid>
+            ) : (
+              <div className={classes.NoPosts}>
+                {/* <GridOffIcon style={{ fontSize: 60 }} /> */}
+                <Typography variant='h4' component={'span'} gutterBottom>
+                  No Posts Yet
+                </Typography>
+                {currentUser.uid === UserId ? (
+                  <Link
+                    style={{ textDecoration: 'none', color: 'black' }}
+                    to={{
+                      pathname: '/Publish',
+                    }}
+                  >
+                    <Button
+                      variant='contained'
+                      color='default'
+                      size='small'
+                      startIcon={<AddIcon />}
+                    >
+                      Add Book
+                    </Button>
+                  </Link>
+                ) : null}
+              </div>
+            )}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Item Two
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Item Three
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            <div className={classes.Wishlist}>
+              <Typography
+                variant='h4'
+                component={'span'}
+                style={{
+                  fontFamily: ` 'Sriracha', cursive`,
+                  color: '#440a67',
+                }}
+                gutterBottom
+              >
+                My Book Wishlist Books
+              </Typography>
               <Link
                 style={{ textDecoration: 'none', color: 'black' }}
                 to={{
-                  pathname: '/EditeProfile',
+                  pathname: '/WishList',
                 }}
               >
                 <Button
                   variant='contained'
                   color='default'
                   size='small'
-                  className={classes.button}
-                  startIcon={<EditIcon />}
-                >
-                  Delete
-                </Button>
-              </Link>
-            ) : null}
-          </Grid>
-        </Grid>
-      </Paper>
-      <Paper square className={classes.taps}>
-        {currentUser.uid === UserId ? (
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            variant='fullWidth'
-            TabIndicatorProps={{
-              style: { background: '#440a67', height: '4px' },
-            }}
-          >
-            <Tab
-              icon={
-                <GridOnIcon className={value === 0 ? classes.active : null} />
-              }
-              className={value === 0 ? classes.active : null}
-              label='POSTS'
-              {...a11yProps(0)}
-            />
-            <Tab
-              className={value === 1 ? classes.active : null}
-              icon={
-                <FavoriteIcon className={value === 1 ? classes.active : null} />
-              }
-              label='FAVORITES'
-              {...a11yProps(1)}
-            />
-            <Tab
-              className={value === 2 ? classes.active : null}
-              icon={
-                <PersonPinIcon
-                  className={value === 2 ? classes.active : null}
-                />
-              }
-              label='NEARBY'
-              {...a11yProps(2)}
-            />
-          </Tabs>
-        ) : null}
-        {currentUser.uid !== UserId ? (
-          <Tabs value={value} onChange={handleChange}>
-            <Tab icon={<GridOnIcon />} label='POSTS' {...a11yProps(0)} />
-          </Tabs>
-        ) : null}
-        <TabPanel value={value} index={0}>
-          <Grid container direction='row' spacing={3}>
-            {userPosts &&
-              userPosts.map((post) => (
-                <Link
-                  style={{ textDecoration: 'none', color: 'black' }}
-                  to={{
-                    pathname: `/Details/${post.id}`,
+                  style={{
+                    marginLeft: '350px',
+                    width: '160px',
+                    height: '40px',
                   }}
                 >
-                  <Grid key={post.id}>
-                    <Card className={classes.card2}>
-                      <CardMedia className={classes.media} image={post.src} />
-                      <CardContent>
-                        <Typography
-                          variant='subtitle1'
-                          component={'span'}
-                          style={{ display: 'inline-block' }}
-                          gutterBottom
-                        >
-                          {post.bookName}
-                        </Typography>
-                        <Typography
-                          variant='subtitle2'
-                          component={'span'}
-                          style={{ display: 'inline-block' }}
-                          color='textSecondary'
-                        >
-                          {post.bookAuthor}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </Grid>
-                </Link>
-              ))}
-          </Grid>
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
-      </Paper>
-    </Grid>
+                  Search for book
+                </Button>
+              </Link>
+            </div>
+            <hr style={{ borderTop: '1px solid #11111' }} />
+            <div style={{ marginTop: '20px' }}>
+              <Grid container direction='row' spacing={3}>
+                {wishList &&
+                  wishList.map((book) => (
+                    <Grid key={book.id}>
+                      <Card className={classes.card2}>
+                        <CardMedia
+                          className={classes.media}
+                          image={book.image}
+                        />
+                        <CardContent>
+                          <Typography
+                            variant='subtitle1'
+                            component={'span'}
+                            gutterBottom
+                          >
+                            {book.name}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Grid>
+                  ))}
+              </Grid>
+            </div>
+          </TabPanel>
+        </Paper>
+      </Grid>
+    </div>
   );
 }

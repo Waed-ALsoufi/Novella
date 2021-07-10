@@ -182,8 +182,8 @@ function Details(props) {
               {...viewport}
               longitude={books.longitude}
               latitude={books.latitude}
-              mapboxApiAccessToken="pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw"
-              mapStyle="mapbox://styles/mapbox/streets-v11"
+              mapboxApiAccessToken='pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw'
+              mapStyle='mapbox://styles/mapbox/streets-v11'
               onViewportChange={() => {
                 setViewport(viewport);
               }}
