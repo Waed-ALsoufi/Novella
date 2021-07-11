@@ -18,11 +18,11 @@
 
 ## ToDo List:
 
-- [ ] Approval of lending in user's profile
-- [ ] Displaying user's published book in profile 
-- [ ] Feedback from users 
-- [ ] Re-design welcome slides 
-- [ ] Re-design profile page
-- [ ] Notification tab 
-- [ ] Advancing the search engine functionality
-- [ ] Setting additional profile information after signing up
+- [/] Approval of lending in user's profile
+- [/] Displaying user's published book in profile 
+- [/] Feedback from users 
+- [/] Re-design welcome slides 
+- [/] Re-design profile page
+- [/] Notification tab 
+- [/] Advancing the search engine functionality
+- [/] Setting additional profile information after signing up
