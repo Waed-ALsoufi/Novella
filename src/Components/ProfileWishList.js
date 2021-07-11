@@ -37,7 +37,7 @@ function ProfileWishList({ UserId }) {
           }}
           gutterBottom
         >
-          My Book Wishlist Books
+          My Book Wishlist
         </Typography>
         <Link
           style={{ textDecoration: 'none', color: 'black' }}

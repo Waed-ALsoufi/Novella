@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
     height: ' 50px',
     backgroundColor: ' #f1f1f1',
     color: '#11111',
-    fontSize: '30px',
+    fontSize: '20px',
     fontFamily: `'Playfair Display ', serif`,
     '&:focus': {
       outline: 'none',
