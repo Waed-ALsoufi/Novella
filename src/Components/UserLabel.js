@@ -1,52 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import app from '../Components/firebase';
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Button, Grid, Avatar } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import { useAuth } from '../Components/Auth';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import app from "../Components/firebase";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Button, Grid, Avatar } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
+import { useAuth } from "../Components/Auth";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingTop: '90px',
+    paddingTop: "90px",
     padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   paper: {
-    width: '70%',
+    width: "70%",
   },
   img: {
     width: theme.spacing(15),
     height: theme.spacing(15),
   },
   info: {
-    marginTop: '30px',
-    marginLeft: '10px',
+    marginTop: "30px",
+    marginLeft: "10px",
   },
   card: {
     padding: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
   button: {
     margin: theme.spacing(1),
-    width: '90px',
+    width: "90px",
   },
 }));
 function UserLabel({ UserId }) {
   const classes = useStyles();
   const { currentUser } = useAuth();
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const [avatar, setAvatar] = useState();
-  const [bio, setBio] = useState('');
-  const [country, setCountry] = useState('');
+  const [bio, setBio] = useState("");
+  const [country, setCountry] = useState("");
   useEffect(() => {
     app
       .firestore()
-      .collection('users')
+      .collection("users")
       .doc(UserId)
       .get()
       .then((doc) => {
@@ -60,42 +60,42 @@ function UserLabel({ UserId }) {
   return (
     <Grid container spacing={2} className={classes.card}>
       <Grid item>
-        <Avatar alt='' src={avatar} className={classes.img} />
+        <Avatar alt="" src={avatar} className={classes.img} />
       </Grid>
       <Grid
         item
         container
         xs={6}
-        direction='column'
+        direction="column"
         spacing={2}
         className={classes.info}
       >
-        <Typography variant='body2' component={'span'} gutterBottom>
+        <Typography variant="body2" component={"span"} gutterBottom>
           {username}
         </Typography>
-        <Typography variant='body2' component={'span'} color='textSecondary'>
+        <Typography variant="body2" component={"span"} color="textSecondary">
           {bio}
         </Typography>
 
-        <Typography variant='body2' component={'span'}>
+        <Typography variant="body2" component={"span"}>
           {country}
         </Typography>
         {currentUser.uid === UserId ? (
           <Link
-            style={{ textDecoration: 'none', color: 'black' }}
+            style={{ textDecoration: "none", color: "black" }}
             to={{
-              pathname: '/EditeProfile',
+              pathname: "/EditeProfile",
             }}
           >
             <Button
-              variant='contained'
-              color='default'
-              size='small'
+              variant="contained"
+              color="default"
+              size="small"
               className={classes.button}
               startIcon={<EditIcon />}
-              style={{ backgroundColor: '#753a99', color: '#FFFFFF' }}
+              style={{ backgroundColor: "#753a99", color: "#FFFFFF" }}
             >
-              Delete
+              Edit
             </Button>
           </Link>
         ) : null}
