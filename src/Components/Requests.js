@@ -119,8 +119,6 @@ function Requests({ post, postIndex }) {
         </Link>
         {accepted ? (
           <Button
-            // onClick={acceptRequest}
-            // className={classes.acceptedButton}
             variant="contained"
             color="default"
             size="small"

@@ -82,7 +82,7 @@ function Regesters({ post, UserId, index }) {
           to={`/Details/${post.bookId}`}
           style={{ textDecoration: "none", color: "black" }}
         >
-          <CardContent container item flex={1}>
+          <CardContent container item>
             <Typography variant="h5">{bookName}</Typography>
             <Typography variant="caption" color="textSecondary">
               {bookAuthor}
@@ -90,17 +90,32 @@ function Regesters({ post, UserId, index }) {
             <Grid container alignItems="center">
               <img
                 src={userImage}
-                alt="user"
                 className={classes.userImage}
                 style={{ marginRight: 10 }}
+                alt=""
               />
               <Typography variant="body2">{userName}</Typography>
             </Grid>
             <Grid container alignItems="center" className={classes.location}>
               <LocationOnIcon fontSize="small" color="disabled" />
               <Typography variant="caption" color="textSecondary">
-                {location}
+                location
               </Typography>
+              <Grid container alignItems="center">
+                <img
+                  src={userImage}
+                  alt="user"
+                  className={classes.userImage}
+                  style={{ marginRight: 10 }}
+                />
+                <Typography variant="body2">{userName}</Typography>
+              </Grid>
+              <Grid container alignItems="center" className={classes.location}>
+                <LocationOnIcon fontSize="small" color="disabled" />
+                <Typography variant="caption" color="textSecondary">
+                  {location}
+                </Typography>
+              </Grid>
             </Grid>
           </CardContent>{" "}
         </Link>
