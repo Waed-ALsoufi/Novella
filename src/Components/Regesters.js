@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   accepted: {
     fontWeight: 100,
     float: "right",
-    marginLeft: 220,
+    marginLeft: 50,
     marginTop: 60,
     color: "rgba(0, 200, 0, 0.7)",
   },
@@ -87,20 +87,7 @@ function Regesters({ post, UserId, index }) {
             <Typography variant="caption" color="textSecondary">
               {bookAuthor}
             </Typography>
-            <Grid container alignItems="center">
-              <img
-                src={userImage}
-                className={classes.userImage}
-                style={{ marginRight: 10 }}
-                alt=""
-              />
-              <Typography variant="body2">{userName}</Typography>
-            </Grid>
             <Grid container alignItems="center" className={classes.location}>
-              <LocationOnIcon fontSize="small" color="disabled" />
-              <Typography variant="caption" color="textSecondary">
-                location
-              </Typography>
               <Grid container alignItems="center">
                 <img
                   src={userImage}
