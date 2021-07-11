@@ -6,10 +6,11 @@ import {
   CardMedia,
   Card,
   CardContent,
-  Avatar,
+  Button,
 } from "@material-ui/core";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cover: {
@@ -30,9 +31,16 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginLeft: 10,
   },
+  accepted: {
+    fontWeight: 100,
+    float: "right",
+    marginLeft: 220,
+    marginTop: 60,
+    color: "rgba(0, 200, 0, 0.7)",
+  },
 }));
 
-function Regesters({ post }) {
+function Regesters({ post, UserId, index }) {
   const classes = useStyles();
 
   const [bookImage, setBookImage] = useState();
@@ -41,6 +49,7 @@ function Regesters({ post }) {
   const [userName, setUserName] = useState();
   const [userImage, setUserImage] = useState();
   const [location, setLocation] = useState();
+  const [accepted, setAccepted] = useState();
 
   useEffect(() => {
     db.collection("AllPosts")
@@ -49,6 +58,8 @@ function Regesters({ post }) {
         setBookImage(doc.data().src);
         setBookName(doc.data().bookName);
         setBookAuthor(doc.data().bookAuthor);
+        setLocation(doc.data().bookLocation);
+        setAccepted(doc.data().accepted);
       });
     db.collection("users")
       .doc(post.OwnerId)
@@ -56,9 +67,10 @@ function Regesters({ post }) {
         setUserName(doc.data().firstName + " " + doc.data().lastName);
         setUserImage(doc.data().image);
       });
-  }, []);
+  }, [post]);
+
   return (
-    <Grid>
+    <Grid style={{ marginTop: 15 }}>
       <Card container className={classes.container}>
         <CardMedia
           item
@@ -66,26 +78,33 @@ function Regesters({ post }) {
           image={bookImage}
           title="Live from space album cover"
         />
-        <CardContent container item>
-          <Typography variant="h5">{bookName}</Typography>
-          <Typography variant="caption" color="textSecondary">
-            {bookAuthor}
-          </Typography>
-          <Grid container alignItems="center">
-            <img
-              src={userImage}
-              className={classes.userImage}
-              style={{ marginRight: 10 }}
-            />
-            <Typography variant="body2">{userName}</Typography>
-          </Grid>
-          <Grid container alignItems="center" className={classes.location}>
-            <LocationOnIcon fontSize="small" color="disabled" />
+        <Link
+          to={`/Details/${post.bookId}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <CardContent container item flex={1}>
+            <Typography variant="h5">{bookName}</Typography>
             <Typography variant="caption" color="textSecondary">
-              location
+              {bookAuthor}
             </Typography>
-          </Grid>
-        </CardContent>
+            <Grid container alignItems="center">
+              <img
+                src={userImage}
+                alt="user"
+                className={classes.userImage}
+                style={{ marginRight: 10 }}
+              />
+              <Typography variant="body2">{userName}</Typography>
+            </Grid>
+            <Grid container alignItems="center" className={classes.location}>
+              <LocationOnIcon fontSize="small" color="disabled" />
+              <Typography variant="caption" color="textSecondary">
+                {location}
+              </Typography>
+            </Grid>
+          </CardContent>{" "}
+        </Link>
+        {accepted ? <h3 className={classes.accepted}>ACCEPTED</h3> : null}
       </Card>
     </Grid>
   );

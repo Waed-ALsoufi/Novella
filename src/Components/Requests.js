@@ -9,7 +9,8 @@ import {
   Button,
 } from "@material-ui/core";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   cover: {
@@ -19,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
     flexDirection: "row",
+    alignItems: "center",
   },
   userImage: {
     width: 30,
@@ -29,6 +31,14 @@ const useStyles = makeStyles((theme) => ({
   location: {
     marginTop: 10,
     marginLeft: 10,
+  },
+  acceptButton: {
+    margin: 10,
+  },
+  acceptedButton: {
+    float: "right",
+    height: 50,
+    cursor: "pointer",
   },
 }));
 
@@ -41,6 +51,7 @@ function Requests({ post, postIndex }) {
   const [userName, setUserName] = useState();
   const [userImage, setUserImage] = useState();
   const [location, setLocation] = useState();
+  const [accepted, setAccepted] = useState();
 
   useEffect(() => {
     db.collection("AllPosts")
@@ -50,6 +61,7 @@ function Requests({ post, postIndex }) {
         setBookName(doc.data().bookName);
         setBookAuthor(doc.data().bookAuthor);
         setLocation(doc.data().bookLocation);
+        setAccepted(doc.data().accepted);
       });
     db.collection("users")
       .doc(post.consumerID)
@@ -59,12 +71,8 @@ function Requests({ post, postIndex }) {
       });
   }, [post]);
 
-  const acceptRequest = async () => {
-    db.collection("AllPosts")
-      .doc(post.bookId)
-      .update({ "requester.accepted": true });
-    // db.collection("users")
-    //   .doc(post.consumerID).update({sentExchanges})
+  const acceptRequest = () => {
+    db.collection("AllPosts").doc(post.bookId).update({ accepted: true });
   };
   return (
     <Grid>
@@ -75,32 +83,76 @@ function Requests({ post, postIndex }) {
           image={bookImage}
           title="Live from space album cover"
         />
-        <CardContent container item>
-          <Grid container>
-            <Grid item>
-              <Typography variant="h5">{bookName}</Typography>
-              <Typography variant="caption" color="textSecondary">
-                {bookAuthor}
-              </Typography>
-              <Grid container alignItems="center">
-                <img
-                  src={userImage}
-                  className={classes.userImage}
-                  style={{ marginRight: 10 }}
-                />
-                <Typography variant="body2">{userName}</Typography>
-              </Grid>
-              <Grid container alignItems="center" className={classes.location}>
-                <LocationOnIcon fontSize="small" color="disabled" />
+        <Link
+          to={`/Details/${post.bookId}`}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <CardContent container item>
+            <Grid container>
+              <Grid item>
+                <Typography variant="h5">{bookName}</Typography>
                 <Typography variant="caption" color="textSecondary">
-                  {location}
+                  {bookAuthor}
                 </Typography>
+                <Grid container alignItems="center">
+                  <img
+                    src={userImage}
+                    alt="user"
+                    className={classes.userImage}
+                    style={{ marginRight: 10 }}
+                  />
+                  <Typography variant="body2">{userName}</Typography>
+                </Grid>
+                <Grid
+                  container
+                  alignItems="center"
+                  className={classes.location}
+                >
+                  <LocationOnIcon fontSize="small" color="disabled" />
+                  <Typography variant="caption" color="textSecondary">
+                    {location}
+                  </Typography>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </CardContent>
+          </CardContent>
+        </Link>
+        {accepted ? (
+          <Button
+            // onClick={acceptRequest}
+            // className={classes.acceptedButton}
+            variant="contained"
+            color="default"
+            size="small"
+            style={{
+              marginLeft: "200px",
+              width: "160px",
+              height: "40px",
+              backgroundColor: "rgba(0, 170, 0, 0.6)",
+              color: "#FFFFFF",
+            }}
+            disabled
+          >
+            Accepted
+          </Button>
+        ) : (
+          <Button
+            onClick={acceptRequest}
+            variant="contained"
+            color="default"
+            size="small"
+            style={{
+              marginLeft: "200px",
+              width: "160px",
+              height: "40px",
+              backgroundColor: "rgba(0, 120, 0, 0.5)",
+              color: "#FFFFFF",
+            }}
+          >
+            Accept
+          </Button>
+        )}
       </Card>
-      <Button onClick={acceptRequest}>Accept</Button>
     </Grid>
   );
 }
