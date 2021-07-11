@@ -77,7 +77,7 @@ function AddBookPage() {
               longitude: marker.longitude,
               time: date,
               publisherId: currentUser.uid,
-              requester: [],
+              // requester: {},
             });
           history.push('/Posts');
         } catch (error) {
@@ -174,7 +174,7 @@ function AddBookPage() {
               type='file'
               name='file'
               id='file'
-              accept='.png, .jpg, .jpeg, .jpg'
+              accept='.png, .jpg, .jpeg'
               onChange={handleImg}
               className={publishStyle.inputfile}
             />

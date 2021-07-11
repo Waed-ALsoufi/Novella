@@ -28,7 +28,6 @@
   transition: 0.3s;
   height: 50px;
   font-family: 'Playfair Display ', serif;
-  /* background-color: #f1f1f1; */
   color: #5e5959;
 }
 .SearchInput:focus {
@@ -107,6 +106,7 @@
   height: 24px;
   width: 24px;
   border-radius: 15px;
+  object-fit: cover;
 }
 .publisherName {
   font-size: 12px;

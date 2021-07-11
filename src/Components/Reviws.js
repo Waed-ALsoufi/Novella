@@ -1,52 +1,75 @@
 /* eslint-disable react/no-array-index-key */
-import React from 'react';
-import pfp3 from '../Images/pfp3.png';
-import pfp2 from '../Images/pfp2.png';
-import pfp1 from '../Images/pfp1.png';
+import React, { useState, useEffect } from "react";
+import { TextField, Button } from "@material-ui/core";
+import { useAuth } from "./Auth";
+import fire from "./firebase";
 
-import '../Style/Reviws.css';
+import "../Style/Reviws.css";
 
 function Reviws() {
-  const reviwsData = [
-    {
-      name: 'William James ',
-      userImage: pfp1,
-      comment: 'oh, finally I will not need to fill my shelf with books! thank you so much ',
+  const [review, setReview] = useState(null);
+  const { username, avatar } = useAuth();
+  const [listReviews, setListReviews] = useState([]);
 
-    },
-    {
-      name: 'Olivia Noah',
-      userImage: pfp3,
-      comment: "Finally, I won't spend my money on books",
+  useEffect(() => {
+    fire
+      .firestore()
+      .collection("Reviews")
+      .onSnapshot((docs) => {
+        let temp = [];
+        docs.forEach((doc) => {
+          const data = doc.data();
+          data.id = doc.id;
+          temp.push(data);
+        });
+        setListReviews(temp.slice(-3));
+      });
+  }, []);
 
-    },
-    {
-      name: 'Henry Jacob',
-      userImage: pfp2,
-      comment: 'Ooh I am very happy that I can get friends who love to read like me',
-
-    },
-
-  ];
   return (
-
     <div>
       <div className="testimonials">
         <div className="inner">
-          <h1>Reviws</h1>
+          <h1>Reviews</h1>
           <div className="border" />
 
-          <div className="row">
-            {reviwsData.map((reviw, index) => (
+          <form className="btn"></form>
+          <div className="flex">
+            <input
+              className="urReview"
+              type="text"
+              placeholder="Write your review here"
+              className="urReview"
+              value={review}
+              onChange={(e) => {
+                setReview(e.target.value);
+                console.log(e.target.value);
+              }}
+            />
+            <button
+              className="button"
+              onClick={() => {
+                if (review !== null) {
+                  fire.firestore().collection("Reviews").add({
+                    username: username,
+                    avatar: avatar,
+                    review: review,
+                  });
+                  setReview(null);
+                }
+              }}
+            >
+              Add
+            </button>
+          </div>
 
+          <div className="row">
+            {listReviews.map((review, index) => (
               <div className="col" key={index}>
                 <div className="testimonial">
-                  <img src={reviw.userImage} alt="" />
-                  <div className="name">
-                    {' '}
-                    {reviw.name}
-                  </div>
-                  <p>{reviw.comment}</p>
+                  <img src={review.avatar} alt="" />
+                  <div className="name"> {review.username}</div>
+                  <p>{review.review}</p>
                 </div>
               </div>
             ))}

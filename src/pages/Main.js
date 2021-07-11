@@ -13,8 +13,7 @@ import PrivateRoute from '../Components/PrivateRoute';
 import ProfilePage from './ProfilePage';
 import WishList from '../Components/WishList';
 import Intrests from '../Components/Intrests';
-function Main(props) {
-  console.log(props);
+function Main() {
   return (
     <Router>
       <AuthProvider>

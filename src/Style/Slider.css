@@ -4,12 +4,9 @@
 
 .slider-container {
   height: 90vh;
-  width: 85%;
+  width: 100%;
   position: relative;
-  margin: auto;
-  padding: 100px;
   overflow: hidden;
-  margin-left: 55px;
 }
 .active {
   display: inline-block;
@@ -20,8 +17,8 @@
 }
 
 .slides {
-  height: 90vh;
-  width: 80%;
+  height: 100vh;
+  width: 100%;
   position: relative;
   background-color: rgba(0, 0, 0, 0);
 }
@@ -33,7 +30,7 @@
   object-fit: cover;
 }
 
-.slide-title,
+/* .slide-title,
 .slide-text {
   width: 100%;
   height: 100%;
@@ -47,14 +44,13 @@
 .slide-text {
   top: 35%;
   font-size: 1.5rem;
-}
+} */
 .prev,
-.next {
+.nextA {
   cursor: pointer;
   position: absolute;
   top: 57%;
   width: auto;
-  margin-top: -22px;
   padding: 16px;
   color: white;
   font-weight: bold;
@@ -62,13 +58,14 @@
   transition: 0.6s ease;
   border-radius: 0 3px 3px 0;
   user-select: none;
+  background-color: rgba(0, 0, 0, 0.384);
 }
 .prev:hover,
-.next:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+.nextA:hover {
+  background-color: blueviolet;
   transition: all 0.5s ease-in;
 }
-.next {
+.nextA {
   right: 0;
   border-radius: 5px 0px 0px 5px;
 }
@@ -80,17 +77,4 @@
   top: 90%;
   left: 5%;
   justify-content: center;
-}
-.dot {
-  cursor: pointer;
-  height: 1.5rem;
-  width: 1.5rem;
-  margin: 0px 5px;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 50%;
-  display: inline-block;
-}
-.active-dot,
-.dot:hover {
-  background-color: rgba(255, 255, 255, 0.5);
 }
