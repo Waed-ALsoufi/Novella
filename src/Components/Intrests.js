@@ -9,6 +9,7 @@ import Children from "../Images/Children.jpeg";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useAuth } from "./Auth";
 import fire from "./firebase";
+import { Link } from "react-router-dom";
 
 function Intrests(props) {
   const { currentUser } = useAuth();
