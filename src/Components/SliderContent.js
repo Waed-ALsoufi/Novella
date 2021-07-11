@@ -1,5 +1,5 @@
-import React from 'react';
-import '../Style/Slider.css';
+import React from "react";
+import "../Style/Slider.css";
 
 function SliderContent({ activeIndex, imageSlider }) {
   return (
@@ -8,19 +8,9 @@ function SliderContent({ activeIndex, imageSlider }) {
         <div
           // eslint-disable-next-line react/no-array-index-key
           key={index}
-          className={index === activeIndex ? 'slides active ' : 'inactive'}
+          className={index === activeIndex ? "slides active " : "inactive"}
         >
           <img className="slide-image" src={slide.urls} alt="" />
-          <h3 className="slide-title">
-            {' '}
-            {slide.title}
-            {' '}
-          </h3>
-          <p className="slide-text">
-            {' '}
-            {slide.description}
-            {' '}
-          </p>
         </div>
       ))}
     </section>

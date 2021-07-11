@@ -1,100 +1,102 @@
-import React, { useState } from 'react';
-import '../Style/Intrests.css';
-// import pfp3 from '../Images/pfp3.png';
-import pfp2 from '../Images/pfp2.png';
-// import pfp1 from '../Images/pfp1.png';
-import { Checkbox } from '@material-ui/core';
-import { useAuth } from './Auth';
-import fire from './firebase';
+import React, { useState } from "react";
+import "../Style/Intrests.css";
+import Drama from "../Images/Drama.jpeg";
+import Policy from "../Images/Policy.jpeg";
+import Scientific from "../Images/Scientific.jpeg";
+import History from "../Images/History.jpg";
+import Fictional from "../Images/Fictional.jpeg";
+import Children from "../Images/Children.jpeg";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { useAuth } from "./Auth";
+import fire from "./firebase";
 
 function Intrests() {
   const { currentUser } = useAuth();
   const [intrestsData, setIntrestData] = useState([
     {
-      name: 'Social Books',
-      intrImg: pfp2,
+      name: "Drama",
+      intrImg: Drama,
       check: false,
     },
     {
-      name: 'Fantasy',
-      intrImg: pfp2,
+      name: "Policy",
+      intrImg: Policy,
       check: false,
     },
     {
-      name: 'Romantic',
-      intrImg: pfp2,
+      name: "Scientific",
+      intrImg: Scientific,
       check: false,
     },
     {
-      name: 'Horror',
-      intrImg: pfp2,
+      name: "History",
+      intrImg: History,
       check: false,
     },
     {
-      name: 'Motivational',
-      intrImg: pfp2,
+      name: "Fictional",
+      intrImg: Fictional,
       check: false,
     },
     {
-      name: 'Children',
-      intrImg: pfp2,
+      name: "Children",
+      intrImg: Children,
       check: false,
     },
   ]);
   return (
-    <div className='testimonials'>
-      <h1 className='tellUs'>Tell us about your interests? </h1>
+    <div className="Intrests">
+      <div>
+        <h1 className="tellUs">Tell us about your interests? </h1>
+      </div>
 
-      <br />
-      <br />
-      <br />
-      <div className='row'>
+      <div className="row">
         {intrestsData.map((intrest, index) => (
-          <div className='col' key={index}>
-            <div className='itrImg'>
-              <img src={intrest.intrImg} alt='' />
-              <Checkbox
-                className='checkbox'
-                checked={intrest.check}
-                onChange={() => {
-                  const newIntrest = intrestsData.filter(
-                    (last) => last.name !== intrest.name
-                  );
-                  newIntrest.push({
-                    name: intrest.name,
-                    check: !intrest.check,
-                    intrImg: intrest.intrImg,
-                  });
-                  setIntrestData(newIntrest);
-                }}
-              />
-              <br />
-              <div className='intrname'> {intrest.name}</div>
+          <div className="col" key={index}>
+            <div className="itrImg">
+              <img src={intrest.intrImg} alt="" />
+              <div className="intrname">
+                <FormControlLabel
+                  value="start"
+                  control={
+                    <Checkbox
+                      color="primary"
+                      checked={intrest.check}
+                      onChange={() => {
+                        const newIntrest = intrestsData.filter(
+                          (last) => last.name !== intrest.name
+                        );
+                        newIntrest.push({
+                          name: intrest.name,
+                          check: !intrest.check,
+                          intrImg: intrest.intrImg,
+                        });
+                        setIntrestData(newIntrest);
+                      }}
+                    />
+                  }
+                  label={intrest.name}
+                  labelPlacement="start"
+                />
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <br />
-      <br />
-      <br />
-      <div>
-        <button
-          className='next'
-          onClick={() => {
-            const newIntrest = intrestsData.filter(
-              (last) => last.name === true
-            );
-            setIntrestData(newIntrest);
-            fire
-              .firestore()
-              .collection('users')
-              .doc(currentUser.uid)
-              .update({ intrestsData });
-          }}
-        >
-          Next
-        </button>
-      </div>
+      <button
+        className="Intrestsbut"
+        onClick={() => {
+          const newIntrest = intrestsData.filter((last) => last.name === true);
+          setIntrestData(newIntrest);
+          fire
+            .firestore()
+            .collection("users")
+            .doc(currentUser.uid)
+            .update({ intrestsData });
+        }}
+      >
+        Next
+      </button>
     </div>
   );
 }

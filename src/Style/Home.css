@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap");
 
 .GoToMap {
   border-radius: 12px;
@@ -23,22 +22,19 @@
 }
 
 #quote-box {
-  background-color:#F2F2F2;
-  width: 40rem;
-  margin-top: 5rem ;
+  background-color: #f2f2f2;
+  width: 60rem;
+  min-height: 10rem;
+  margin-top: -2rem;
   padding: 3rem;
   border-radius: 5px;
-  margin-left: 300px;
-
-  
-
+  margin-left: 150px;
 }
 #text {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #440a67;
-
 }
 #author {
   display: flex;
@@ -57,17 +53,18 @@
   border: none;
   color: #fff;
   padding: 1rem 1rem;
-  font-size: .9rem;
+  font-size: 0.9rem;
   font-weight: bold;
   border-radius: 2px;
   outline: none;
   cursor: pointer;
-  font-family: 'Nunito', sans-serif;
-
+  font-family: "Nunito", sans-serif;
 }
 #new-quote:hover {
   opacity: 0.9;
 }
-
-
-
+.saf {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+}
