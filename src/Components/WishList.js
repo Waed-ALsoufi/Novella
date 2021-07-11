@@ -17,7 +17,6 @@ import firebase from 'firebase/app';
 const useStyles = makeStyles((theme) => ({
   main: {
     minHeight: '100vh',
-    backgroundImage: 'linear-gradient(to top, #d299c2 0%, #fef9d7 100%)',
     marginTop: '70px',
   },
   root: {
@@ -70,11 +69,13 @@ const useStyles = makeStyles((theme) => ({
     outline: 'none',
     transition: '0.3s',
     height: ' 50px',
+    backgroundColor: ' #f1f1f1',
+    color: '#11111',
+    fontSize: '30px',
     fontFamily: `'Playfair Display ', serif`,
     '&:focus': {
       outline: 'none',
     },
-    fontSize: '15px',
   },
   media: {
     paddingTop: '50%',
@@ -145,6 +146,7 @@ function WishList() {
                 className={classes.button}
                 variant='contained'
                 onClick={handleSubmit}
+                style={{ backgroundColor: '#440a67', color: '#FFFFFF' }}
               >
                 Search
               </Button>
@@ -179,7 +181,12 @@ function WishList() {
                       variant='contained'
                       color='default'
                       size='small'
-                      style={{ marginTop: '10px', fontSize: '13px' }}
+                      style={{
+                        marginTop: '10px',
+                        fontSize: '13px',
+                        backgroundColor: '#753a99',
+                        color: '#FFFFFF',
+                      }}
                       onClick={() => {
                         updateWishList(
                           book.volumeInfo.title,

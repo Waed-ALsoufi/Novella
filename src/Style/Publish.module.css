@@ -26,21 +26,23 @@
 }
 .right {
   padding: 25px 40px;
-  margin-top: 180px;
+  margin-top: 195px;
 }
 
 .Title {
-  padding: 0 0 10px;
-  margin-bottom: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   color: #440a67;
   text-align: left;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Sriracha';
 }
 
 .subtitle {
   margin: 16px 16px 4px;
   font-size: 20px;
-  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-family: Roboto, Arial, sans-serif;
+  color: #4a4a4a;
 }
 .field,
 .field2,

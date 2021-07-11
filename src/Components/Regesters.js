@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Regesters({ post }) {
+function Regesters({ post, key }) {
   const classes = useStyles();
 
   const [bookImage, setBookImage] = useState();
@@ -54,9 +54,9 @@ function Regesters({ post }) {
         setUserName(doc.data().firstName + ' ' + doc.data().lastName);
         setUserImage(doc.data().image);
       });
-  }, []);
+  }, [post.bookId, post.OwnerId]);
   return (
-    <Grid>
+    <Grid key={key}>
       <Card container className={classes.container}>
         <CardMedia
           item

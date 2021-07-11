@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Requests({ post, postIndex }) {
+function Requests({ post, postIndex, key }) {
   const classes = useStyles();
 
   const [bookImage, setBookImage] = useState();
@@ -67,7 +67,7 @@ function Requests({ post, postIndex }) {
     //   .doc(post.consumerID).update({sentExchanges})
   };
   return (
-    <Grid>
+    <Grid key={key}>
       <Card container className={classes.container}>
         <CardMedia
           item

@@ -31,7 +31,7 @@ function Navbar() {
     <>
       <nav className='navbar'>
         <Link to='/Home' className='navbar-logo'>
-          Novella
+          <span className='title__name '> Novella</span>{' '}
         </Link>
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
           <li className='nav-item'>

@@ -13,33 +13,27 @@ import PrivateRoute from '../Components/PrivateRoute';
 import ProfilePage from './ProfilePage';
 import WishList from '../Components/WishList';
 import Intrests from '../Components/Intrests';
-function Main() {
+function Main(props) {
+  console.log(props);
   return (
     <Router>
       <AuthProvider>
         <Switch>
-          <>
-            <div>
-              <Route path='/Login' component={Login} />
-              <Route path='/SignUp' component={SignUp} />
-              <Route path='/Logout' component={Login} />
-              <Route path='/Intrests' component={Intrests} />
-            </div>
-            <div>
-              <Navbar />
-              <PrivateRoute path='/' exact component={Home} />
-              <PrivateRoute path='/Home' component={Home} />
-              <PrivateRoute path='/Posts' component={BooksPage} />
-              <PrivateRoute path='/Publish' component={AddBookPage} />
-              <PrivateRoute path='/Details/:id' component={BookDetails} />
-              <PrivateRoute path='/EditeProfile' component={EditeProfile} />
-              <PrivateRoute
-                path='/UserProfile/:UserId'
-                component={ProfilePage}
-              />
-              <PrivateRoute path='/WishList' component={WishList} />
-            </div>
-          </>
+          <Route path='/Login' component={Login} />
+          <Route path='/SignUp' component={SignUp} />
+          <Route path='/Intrests' component={Intrests} />
+          <Route path='/Logout' component={Login} />
+          <div>
+            <Navbar />
+            <PrivateRoute path='/' exact component={Home} />
+            <PrivateRoute path='/Home' component={Home} />
+            <PrivateRoute path='/Posts' component={BooksPage} />
+            <PrivateRoute path='/Publish' component={AddBookPage} />
+            <PrivateRoute path='/Details/:id' component={BookDetails} />
+            <PrivateRoute path='/EditeProfile' component={EditeProfile} />
+            <PrivateRoute path='/UserProfile/:UserId' component={ProfilePage} />
+            <PrivateRoute path='/WishList' component={WishList} />
+          </div>
         </Switch>
       </AuthProvider>
     </Router>

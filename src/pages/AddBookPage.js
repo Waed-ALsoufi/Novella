@@ -134,7 +134,10 @@ function AddBookPage() {
         `https://us1.locationiq.com/v1/reverse.php?key=pk.60c4eff43cb5d5b1a97a7b542ff728ae&lat=${marker.latitude}&lon=${marker.longitude}&format=json`
       );
       const newData = await response.json();
-      const add = newData ? newData.display_name.split(', ') : null;
+      const add =
+        newData && newData.display_name.split(', ')
+          ? newData.display_name.split(', ')
+          : null;
       if (active) {
         setAdress(`${add[0]} ${add[1]}`);
       }
@@ -171,7 +174,7 @@ function AddBookPage() {
               type='file'
               name='file'
               id='file'
-              accept='.png, .jpg, .jpeg'
+              accept='.png, .jpg, .jpeg, .jpg'
               onChange={handleImg}
               className={publishStyle.inputfile}
             />
