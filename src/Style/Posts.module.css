@@ -67,7 +67,9 @@
 }
 
 .BookTitle {
-  font-size: 20px;
+  font-size: 18px;
+  height: 25px;
+  overflow: hidden;
   margin-top: 10px;
   font-weight: 600;
   color: #440a67;
