@@ -2,26 +2,26 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/button-has-type */
 // Waed ALsoufi
-import React, { useState, useEffect } from 'react';
-import firebase from 'firebase/app';
-import ReactMapGL, { Marker } from 'react-map-gl';
-import detailsStyle from '../Style/Details.module.css';
-import app, { db } from '../Components/firebase';
-import Loading from '../Components/Loading';
+import React, { useState, useEffect } from "react";
+import firebase from "firebase/app";
+import ReactMapGL, { Marker } from "react-map-gl";
+import detailsStyle from "../Style/Details.module.css";
+import app, { db } from "../Components/firebase";
+import Loading from "../Components/Loading";
 
-import Pin from '../Components/pin';
-import { useAuth } from '../Components/Auth';
+import Pin from "../Components/pin";
+import { useAuth } from "../Components/Auth";
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import "mapbox-gl/dist/mapbox-gl.css";
+import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
 function Details(props) {
   const [books, setBooks] = useState([]);
   const [owner, setOwner] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [viewport, setViewport] = useState({
-    height: ' 350px',
-    width: '250px',
+    height: " 350px",
+    width: "250px",
     zoom: 10,
   });
   const { currentUser } = useAuth();
@@ -33,18 +33,18 @@ function Details(props) {
   const ownerInfo = (ownerId) => {
     app
       .firestore()
-      .collection('users')
+      .collection("users")
       .doc(ownerId)
       .get()
       .then((Bookowner) => {
         if (Bookowner.exists) {
           setOwner(Bookowner.data());
         } else {
-          console.error('Owner undefined');
+          console.error("Owner undefined");
         }
       })
       .catch((error) => {
-        console.error('Error getting document:', error);
+        console.error("Error getting document:", error);
       });
   };
   useEffect(() => {
@@ -52,45 +52,42 @@ function Details(props) {
       setisLoading(true);
       app
         .firestore()
-        .collection('AllPosts')
+        .collection("AllPosts")
         .doc(bookId)
         .get()
         .then((book) => {
           if (book.exists) {
             setBooks(book.data());
-            // eslint-disable-next-line no-unused-expressions
-            book.data().requester.includes(consumerID)
-              ? setIfRequest(true)
-              : setIfRequest(false);
+            book.data().requester ? setIfRequest(true) : setIfRequest(false);
             ownerInfo(book.data().publisherId);
             setisLoading(false);
           } else {
-            console.error('No such document!');
+            console.error("No such document!");
           }
         })
         .catch((error) => {
-          console.error('Error getting document:', error);
+          console.error("Error getting document:", error);
         });
     };
     bookInfo();
   }, [bookId, consumerID]);
 
   const updatePostRequest = () => {
-    db.collection('AllPosts')
+    db.collection("AllPosts")
       .doc(bookId)
       .update({
-        requester: firebase.firestore.FieldValue.arrayUnion(consumerID),
+        requester: consumerID,
       })
       .then(() => {
-        console.log('Document successfully updated!');
-        setIfRequest('Requested');
+        console.log("Document successfully updated!");
+        setIfRequest("Requested");
       })
       .catch((error) => {
-        console.error('Error updating document: ', error);
+        console.error("Error updating document: ", error);
       });
   };
   const updateRequestToOwner = (OwnerId) => {
-    db.collection('users')
+    db.collection("users")
       .doc(OwnerId)
       .update({
         unapprovedExchanges: firebase.firestore.FieldValue.arrayUnion({
@@ -99,15 +96,15 @@ function Details(props) {
         }),
       })
       .then(() => {
-        console.log('Document successfully updated!');
+        console.log("Document successfully updated!");
       })
       .catch((error) => {
-        console.error('Error updating document: ', error);
+        console.error("Error updating document: ", error);
       });
   };
 
   const updateRequestToConsumer = (OwnerId) => {
-    db.collection('users')
+    db.collection("users")
       .doc(consumerID)
       .update({
         sentExchanges: firebase.firestore.FieldValue.arrayUnion({
@@ -116,10 +113,10 @@ function Details(props) {
         }),
       })
       .then(() => {
-        console.log('Document successfully updated!');
+        console.log("Document successfully updated!");
       })
       .catch((error) => {
-        console.error('Error updating document: ', error);
+        console.error("Error updating document: ", error);
       });
   };
   const request = () => {
@@ -135,12 +132,12 @@ function Details(props) {
             You can get this book from:
           </h4>
           <img
-            style={{ display: 'inline' }}
+            style={{ display: "inline" }}
             alt={owner.owner}
             src={owner.image}
             className={detailsStyle.publisherImg}
           />
-          <h3 className={detailsStyle.dataItem} style={{ display: 'inline' }}>
+          <h3 className={detailsStyle.dataItem} style={{ display: "inline" }}>
             {`${owner.firstName} ${owner.lastName}`}
           </h3>
           {ifrequest ? (
@@ -176,14 +173,14 @@ function Details(props) {
         </div>
         <div className={detailsStyle.right}>
           <div>
-            {' '}
+            {" "}
             <h2 className={detailsStyle.Title}> Location</h2>
             <ReactMapGL
               {...viewport}
               longitude={books.longitude}
               latitude={books.latitude}
-              mapboxApiAccessToken='pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw'
-              mapStyle='mapbox://styles/mapbox/streets-v11'
+              mapboxApiAccessToken="pk.eyJ1Ijoid2FlZGFsc291ZmkiLCJhIjoiY2twYm9lZGhyMTRhbjJ1bXBpanNicjM1byJ9.UWOw36CzRp28by_RMiKvUw"
+              mapStyle="mapbox://styles/mapbox/streets-v11"
               onViewportChange={() => {
                 setViewport(viewport);
               }}

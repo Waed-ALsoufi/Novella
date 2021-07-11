@@ -224,7 +224,7 @@ export default function ProfilePage(props) {
                     className={classes.button}
                     startIcon={<EditIcon />}
                   >
-                    Delete
+                    Edit
                   </Button>
                 </Link>
               ) : null}
@@ -361,14 +361,7 @@ export default function ProfilePage(props) {
           </TabPanel>
           <TabPanel value={value} index={1}>
             {regesters ? (
-              regesters.map((post) => (
-                <Link
-                  to={`/Details/${post.bookId}`}
-                  style={{ textDecoration: "none " }}
-                >
-                  <Regesters post={post} />
-                </Link>
-              ))
+              regesters.map((post) => <Regesters post={post} />)
             ) : (
               <Grid justifyContent="center" alignItems="center">
                 <Typography variant="body1">
@@ -379,13 +372,8 @@ export default function ProfilePage(props) {
           </TabPanel>
           <TabPanel value={value} index={2}>
             {requests ? (
-              requests.map((post) => (
-                <Link
-                  to={`/Details/${post.bookId}`}
-                  style={{ textDecoration: "none " }}
-                >
-                  <Requests post={post} />
-                </Link>
+              requests.map((post, index) => (
+                <Requests post={post} postIndex={index} UserId={UserId} />
               ))
             ) : (
               <Grid justifyContent="center" alignItems="center">
