@@ -23,11 +23,6 @@ function ProfileWishList({ UserId }) {
       .get()
       .then((doc) => {
         setWishList(doc.data().wishList);
-        let item =
-          doc.data().wishList[
-            Math.floor(Math.random() * doc.data().wishList.length)
-          ];
-        console.log(item);
       });
   }, [UserId]);
   return (

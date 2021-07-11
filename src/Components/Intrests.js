@@ -1,66 +1,67 @@
-import React, { useState } from "react";
-import "../Style/Intrests.css";
-import Drama from "../Images/Drama.jpeg";
-import Policy from "../Images/Policy.jpeg";
-import Scientific from "../Images/Scientific.jpeg";
-import History from "../Images/History.jpg";
-import Fictional from "../Images/Fictional.jpeg";
-import Children from "../Images/Children.jpeg";
-import { Checkbox, FormControlLabel } from "@material-ui/core";
-import { useAuth } from "./Auth";
-import fire from "./firebase";
+import React, { useState } from 'react';
+import '../Style/Intrests.css';
+import Drama from '../Images/Drama.jpeg';
+import Policy from '../Images/Policy.jpeg';
+import Scientific from '../Images/Scientific.jpeg';
+import History from '../Images/History.jpg';
+import Fictional from '../Images/Fictional.jpeg';
+import Children from '../Images/Children.jpeg';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
+import { useAuth } from './Auth';
+import fire from './firebase';
+import { Link } from 'react-router-dom';
 
 function Intrests() {
   const { currentUser } = useAuth();
   const [intrestsData, setIntrestData] = useState([
     {
-      name: "Drama",
+      name: 'Drama',
       intrImg: Drama,
       check: false,
     },
     {
-      name: "Policy",
+      name: 'Policy',
       intrImg: Policy,
       check: false,
     },
     {
-      name: "Scientific",
+      name: 'Scientific',
       intrImg: Scientific,
       check: false,
     },
     {
-      name: "History",
+      name: 'History',
       intrImg: History,
       check: false,
     },
     {
-      name: "Fictional",
+      name: 'Fictional',
       intrImg: Fictional,
       check: false,
     },
     {
-      name: "Children",
+      name: 'Children',
       intrImg: Children,
       check: false,
     },
   ]);
   return (
-    <div className="Intrests">
+    <div className='Intrests'>
       <div>
-        <h1 className="tellUs">Tell us about your interests? </h1>
+        <h1 className='tellUs'>Tell us about your interests? </h1>
       </div>
 
-      <div className="row">
+      <div className='row'>
         {intrestsData.map((intrest, index) => (
-          <div className="col" key={index}>
-            <div className="itrImg">
-              <img src={intrest.intrImg} alt="" />
-              <div className="intrname">
+          <div className='col' key={index}>
+            <div className='itrImg'>
+              <img src={intrest.intrImg} alt='' />
+              <div className='intrname'>
                 <FormControlLabel
-                  value="start"
+                  value='start'
                   control={
                     <Checkbox
-                      color="primary"
+                      color='primary'
                       checked={intrest.check}
                       onChange={() => {
                         const newIntrest = intrestsData.filter(
@@ -76,27 +77,31 @@ function Intrests() {
                     />
                   }
                   label={intrest.name}
-                  labelPlacement="start"
+                  labelPlacement='start'
                 />
               </div>
             </div>
           </div>
         ))}
       </div>
-      <button
-        className="Intrestsbut"
-        onClick={() => {
-          const newIntrest = intrestsData.filter((last) => last.name === true);
-          setIntrestData(newIntrest);
-          fire
-            .firestore()
-            .collection("users")
-            .doc(currentUser.uid)
-            .update({ intrestsData });
-        }}
-      >
-        Next
-      </button>
+      <Link to={`/Home`} style={{ textDecoration: 'none ' }}>
+        <button
+          className='Intrestsbut'
+          onClick={() => {
+            const newIntrest = intrestsData.filter(
+              (last) => last.name === true
+            );
+            setIntrestData(newIntrest);
+            fire
+              .firestore()
+              .collection('users')
+              .doc(currentUser.uid)
+              .update({ intrestsData });
+          }}
+        >
+          Next
+        </button>
+      </Link>
     </div>
   );
 }
