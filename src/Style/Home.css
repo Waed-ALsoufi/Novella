@@ -1,22 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap");
-
-.GoToMap {
-  border-radius: 12px;
-  background-color: #440a67;
-  color: white;
-  padding: 7px 60px;
-  text-align: center;
-  font-size: 17px;
-  margin: 100px 400px;
-  width: 350px;
-  height: 64px;
-  top: 582px;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
 
 .main {
   align-items: center;
-  width: 100%;
-  height: 100%;
   justify-content: center;
   padding: 20px 80px;
 }
@@ -28,12 +13,11 @@
   margin-top: -2rem;
   padding: 3rem;
   border-radius: 5px;
-  margin-left: 150px;
 }
 #text {
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   color: #440a67;
 }
 #author {
@@ -58,13 +42,14 @@
   border-radius: 2px;
   outline: none;
   cursor: pointer;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 #new-quote:hover {
   opacity: 0.9;
 }
 .saf {
-  height: 80vh;
+  height: 70vh;
   display: flex;
   align-items: center;
+  justify-content: center;
 }

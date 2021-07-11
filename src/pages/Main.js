@@ -4,7 +4,7 @@ import Navbar from '../Components/Navbar';
 import Login from './LogInPage';
 import SignUp from './SignUpPage';
 import { AuthProvider } from '../Components/Auth';
-import Home from '../Components/Home';
+import HomePage from './HomePage';
 import BooksPage from './BooksPage';
 import AddBookPage from './AddBookPage';
 import BookDetails from './BookDetails';
@@ -24,8 +24,8 @@ function Main() {
           <Route path='/Logout' component={Login} />
           <div>
             <Navbar />
-            <PrivateRoute path='/' exact component={Home} />
-            <PrivateRoute path='/Home' component={Home} />
+            <PrivateRoute path='/' exact component={HomePage} />
+            <PrivateRoute path='/Home' component={HomePage} />
             <PrivateRoute path='/Posts' component={BooksPage} />
             <PrivateRoute path='/Publish' component={AddBookPage} />
             <PrivateRoute path='/Details/:id' component={BookDetails} />

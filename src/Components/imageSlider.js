@@ -1,17 +1,12 @@
-import books1 from '../Images/silderbg2.jpeg';
-import books2 from '../Images/sliderbg.jpeg';
+import books1 from '../Images/slider1.png';
+import books2 from '../Images/slider2.png';
 
 const imageSlider = [
   {
-    title: 'Welcome To Novella',
-    description:
-      ' Novella is an online community that allows readers and book owners to exchange books.',
-    urls: books2,
+    urls: books1,
   },
   {
-    title: 'Second image slide',
-    description: ' This the second image slide',
-    urls: books1,
+    urls: books2,
   },
 ];
 
