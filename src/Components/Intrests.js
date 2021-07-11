@@ -10,7 +10,7 @@ import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { useAuth } from "./Auth";
 import fire from "./firebase";
 
-function Intrests() {
+function Intrests(props) {
   const { currentUser } = useAuth();
   const [intrestsData, setIntrestData] = useState([
     {
@@ -92,7 +92,8 @@ function Intrests() {
             .firestore()
             .collection("users")
             .doc(currentUser.uid)
-            .update({ intrestsData });
+            .update({ intrestsData })
+            .then(() => props.history.push("/Home"));
         }}
       >
         Next
